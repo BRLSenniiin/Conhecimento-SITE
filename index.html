@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SCIENTIA — Plataforma de Estudos</title>
+    <link rel="icon" href="Images/Icon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <!-- fontes dos temas por matéria -->
@@ -5374,9 +5375,13 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
           de Images/ não existirem)
          ───────────────────────────────────────────────────────────────────
          ESTRUTURA DE PASTAS (ao lado deste .html):
-           Images/Wallpaper.webp        → fundo do site            (item 1)
+           Images/Wallpaper.webp        → fundo geral do site       (item 1)
+           Images/WALLPAPERS/<página>.webp      → fundo de UMA página (ex.: metalurgia.webp, dev-web.webp, home.webp)
+           Images/WALLPAPERS/tipo-<tipo>.webp   → fundo de um TIPO de matéria (tipo-exatas, tipo-humanas, tipo-biologicas,
+                                                  tipo-linguagens, tipo-aplicadas, tipo-geograficas)
+           Ordem de escolha: página → tipo → geral. Falta um arquivo? Usa o próximo. Para ver os nomes: #wallpapers no endereço.
            Images/Logo.webp             → logo da barra superior   (item 1)
-           Images/Icon.webp             → ícone da barra de busca  (item 1)
+           Images/Icon.ico              → favicon (aba do navegador) e ícone da barra de busca (item 1)
            Images/ICONS/<nome>.webp     → ícones (nome = data-icon)   (item 2)
            Images/IMAGENS/<nome>.webp   → imagem de cada tópico (data-img) (item 3)
            Images/FONTS/<arquivo>.woff2 → fontes baixadas por você     (item 4)
@@ -5387,7 +5392,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
       /* ── 1. WALLPAPER (Images/Wallpaper.webp) ──
          Fica atrás de tudo; aparece onde a página não tem fundo próprio (tela inicial). */
-      :root { --img-wallpaper: url('Images/Wallpaper.webp'); }
+      :root { --img-wallpaper: none; --wallpaper-veu: 0.55; }  /* veu: 0 = sem película, 1 = cor do tema cobrindo tudo */
       body::before {
         content: '';
         position: fixed;
@@ -5395,6 +5400,49 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         z-index: -1;
         pointer-events: none;
         background: var(--img-wallpaper) center / cover no-repeat;
+      }
+
+      /* ── SUB-ABAS dentro de Fundamentos (Metalurgia) ── */
+      .met-subtabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; padding: 0 0 14px; border-bottom: 1px solid var(--border, #444); }
+      .met-subtab-btn { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink3, #aaa); background: var(--surface2, #222); border: 1px solid var(--border, #444); border-radius: 20px; padding: 7px 14px; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+      .met-subtab-btn:hover { color: var(--ink, #fff); border-color: var(--red, #fb8c3c); }
+      .met-subtab-btn.active { background: var(--red, #fb8c3c); border-color: var(--red, #fb8c3c); color: var(--bg, #111); }
+      .met-subpanel { display: none; }
+      .met-subpanel.active { display: block; }
+
+      /* ── GLOSSÁRIO TÉCNICO (aba de todas as páginas) ── */
+      .gl-wrap { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+      @media (max-width: 640px) { .gl-wrap { padding: 20px 14px; } }
+      .gl-barra { display: flex; flex-wrap: wrap; gap: 5px; margin: 4px 0 12px; }
+      .gl-btn { font-family: 'Courier Prime', monospace; font-size: 12px; min-width: 34px; padding: 6px 8px; border: 1px solid var(--border, #444); border-radius: 6px; background: var(--surface2, #222); color: var(--ink2, #ddd); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+      .gl-btn:hover:not(:disabled) { border-color: var(--red, #fb8c3c); color: var(--ink, #fff); }
+      .gl-btn.ativo { background: var(--red, #fb8c3c); border-color: var(--red, #fb8c3c); color: var(--bg, #111); }
+      .gl-btn:disabled { opacity: 0.3; cursor: default; }
+      .gl-btn-todos { padding: 6px 14px; letter-spacing: 1px; text-transform: uppercase; }
+      .gl-grupo-num { margin-left: 10px; padding-left: 10px; border-left: 1px solid var(--border, #444); display: flex; flex-wrap: wrap; gap: 5px; }
+      .gl-contagem { font-family: 'Courier Prime', monospace; font-size: 12px; color: var(--ink4, #888); margin: 0 0 14px; }
+      .gl-letra { font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 2px; color: var(--red, #fb8c3c); border-bottom: 1px solid var(--border, #444); padding: 14px 0 6px; margin: 6px 0 4px; }
+      .gl-item { padding: 10px 0; border-bottom: 1px dashed var(--border, #444); }
+      .gl-termo { font-weight: 700; color: var(--ink, #fff); font-size: 15px; margin-bottom: 3px; }
+      .gl-def { color: var(--ink3, #bbb); font-size: 14px; line-height: 1.6; }
+
+      /* película na cor do tema por cima do wallpaper: mantém o texto legível (ajuste em --wallpaper-veu) */
+      body.com-wallpaper::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-color: inherit;
+        opacity: var(--wallpaper-veu);
+      }
+      /* modo identificação: SCIENTIA.html#wallpapers mostra os nomes de arquivo desta página */
+      body.debug-wallpaper::before { outline: 3px dashed #c0392b; outline-offset: -3px; }
+      html.debug-wallpaper::after {
+        content: 'Wallpaper desta página (ordem de busca): ' attr(data-wallpaper-caminhos);
+        position: fixed; left: 8px; bottom: 8px; z-index: 9999; max-width: calc(100% - 16px);
+        font: 11px/1.4 'Courier Prime', monospace; background: #c0392b; color: #fff;
+        padding: 5px 8px; border-radius: 2px; word-break: break-all; pointer-events: none;
       }
 
       /* ── 1. LOGO e ÍCONE DA BUSCA (só ativam se o arquivo existir) ── */
@@ -5482,8 +5530,8 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         <img class="topbar-logo-img" src="Images/Logo.webp" alt="SCIENTIA" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()" />SCIENTIA <span>///</span></a>
       <div class="topbar-search" id="topbar-search-wrap">
         <input type="text" id="search-input" placeholder="Buscar matéria..." autocomplete="off" />
-        <!-- [IMAGEM FIXA 2/3] ÍCONE DA BARRA DE PESQUISA: Images/Icon.webp (se não existir, aparece o símbolo ⌕) -->
-        <span class="topbar-search-icon"><img class="topbar-search-icon-img" src="Images/Icon.webp" alt="" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()" />⌕</span>
+        <!-- [IMAGEM FIXA 2/3] ÍCONE DA BARRA DE PESQUISA (e favicon da aba): Images/Icon.ico (se não existir, aparece o símbolo ⌕) -->
+        <span class="topbar-search-icon"><img class="topbar-search-icon-img" src="Images/Icon.ico" alt="" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()" />⌕</span>
       </div>
     </header>
 
@@ -10694,7 +10742,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                     <div class="manual-section">
                       <div class="manual-section-title">Problemas que o objeto pode comprometer</div>
                       <div class="manual-section-body">
-                        <strong>Stick drift — a causa física real.</strong><br>Os analógicos do DualSense (e da maioria dos controles modernos) usam <strong>potenciômetros</strong> — um contato metálico ("wiper") desliza sobre uma trilha de carbono resistiva pra reportar a posição do analógico. Esse contato físico é o problema: o atrito repetido desgasta a trilha, formando um sulco. Uma vez desgastada, a posição de "repouso" para de corresponder ao centro real, e o console interpreta essa diferença como movimento — mesmo com o analógico parado. Testes (iFixit) estimam desgaste perceptível a partir de cerca de 417 horas de uso intenso — não é defeito de fabricação isolado, é a natureza do próprio componente (módulos ALPS, os mesmos usados pela concorrência).<br><br>
+                        <strong>Stick drift — a causa física real.</strong><br>Os analógicos do DualSense (e da maioria dos controles modernos) usam <strong>potenciômetros</strong> — um contato metálico ("wiper") desliza sobre uma trilha de carbono resistiva pra reportar a posição do analógico. Esse contato físico é o problema: o atrito repetido desgasta a trilha, formando um sulco. Uma vez desgastada, a posição de "repouso" para de corresponder ao centro real, e o console interpreta essa diferença como movimento — mesmo com o analógico parado. Testes estimam desgaste perceptível a partir de cerca de 417 horas de uso intenso — não é defeito de fabricação isolado, é a natureza do próprio componente (módulos ALPS, os mesmos usados pela concorrência).<br><br>
                         <strong>Como reduzir o desgaste antes que ele vire drift.</strong><br>Como o desgaste é mecânico e cumulativo, não existe forma de evitá-lo completamente — mas dá pra reduzir a velocidade: evitar girar o analógico completamente até o limite físico de forma repetitiva e desnecessária (jogos de corrida/mira sensível tendem a acelerar isso), manter o controle livre de poeira e resíduo de comida/gordura das mãos, e considerar controles com sensor Hall Effect/TMR de fábrica para quem joga competitivamente por muitas horas.<br><br>
                         <strong>Outros pontos de falha:</strong> a porta USB-C (que pode se soltar da placa) e o fio do atuador háptico — detalhes na aba Manuais Eletrônicos.
                       </div>
@@ -10888,9 +10936,9 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
             <div class="hist-period">🌐 Tópico XXX</div>
             <div class="hist-event">Sites — Aprendizado e Fundamentos</div>
             <div class="hist-detail drop-cap">
-              <strong>All About Circuits</strong> (allaboutcircuits.com) — provavelmente o melhor "livro-texto online" gratuito que existe sobre eletricidade e eletrônica, em volumes progressivos (CC, CA, semicondutores, digital). Referência sólida, sem ruído comercial pesado.<br><br>
-              <strong>SparkFun Learn</strong> (learn.sparkfun.com) — tutoriais muito bem escritos e ilustrados, do "o que é um circuito" até PCB e RF, com viés prático (mão na massa, breadboard).<br><br>
-              <strong>Adafruit Learning System</strong> (learn.adafruit.com) — biblioteca gigantesca e gratuita, forte em microcontroladores (Arduino, Raspberry Pi, CircuitPython) e projetos guiados passo a passo.<br><br>
+              <strong>All About Circuits</strong> — provavelmente o melhor "livro-texto online" gratuito que existe sobre eletricidade e eletrônica, em volumes progressivos (CC, CA, semicondutores, digital). Referência sólida, sem ruído comercial pesado.<br><br>
+              <strong>SparkFun Learn</strong> — tutoriais muito bem escritos e ilustrados, do "o que é um circuito" até PCB e RF, com viés prático (mão na massa, breadboard).<br><br>
+              <strong>Adafruit Learning System</strong> — biblioteca gigantesca e gratuita, forte em microcontroladores (Arduino, Raspberry Pi, CircuitPython) e projetos guiados passo a passo.<br><br>
               <strong>Khan Academy — Electrical Engineering</strong> — bom pra quem quer a base de circuitos em formato de curso estruturado com exercícios, de graça.
             </div>
             <div class="hist-names"><span class="hist-name-tag">All About Circuits</span><span class="hist-name-tag">SparkFun Learn</span><span class="hist-name-tag">Adafruit Learning System</span><span class="hist-name-tag">Khan Academy</span></div>
@@ -10900,7 +10948,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
             <div class="hist-period">🔍 Tópico XXXI</div>
             <div class="hist-event">Sites — Reparo, Peças e Datasheets</div>
             <div class="hist-detail drop-cap">
-              <strong>iFixit</strong> (ifixit.com) — <em>o</em> site de referência mundial pra desmontagem e reparo: guias passo a passo com fotos reais para praticamente qualquer console, controle, celular ou notebook, venda de peças e ferramentas certas pra cada aparelho, e um índice de "reparabilidade" por produto. Provavelmente o site mais útil de toda essa lista pro seu caso específico (PS5, TVs, fones) — é ele que citamos várias vezes nas abas anteriores.<br><br>
+              <strong>iFixit</strong> — <em>o</em> site de referência mundial pra desmontagem e reparo: guias passo a passo com fotos reais para praticamente qualquer console, controle, celular ou notebook, venda de peças e ferramentas certas pra cada aparelho, e um índice de "reparabilidade" por produto. Provavelmente o site mais útil de toda essa lista pro seu caso específico (PS5, TVs, fones) — é ele que citamos várias vezes nas abas anteriores.<br><br>
               <strong>Octopart</strong> e <strong>Digi-Key / Mouser</strong> — motores de busca de componentes e datasheets; digitando o código impresso num CI, geralmente aparece a folha de dados oficial do fabricante.<br><br>
               <strong>Hackster.io</strong> e <strong>Hackaday</strong> — comunidades com projetos documentados, incluindo muitos reversos de engenharia de aparelhos comerciais (bom pra quando você quer entender como um produto específico funciona por dentro).
             </div>
@@ -11103,7 +11151,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                         </div><br>
 
                         <h5>Possíveis causas</h5>
-                        <strong>Desgaste mecânico do potenciômetro</strong> — cada analógico é, por dentro, um contato metálico (chamado "wiper") deslizando sobre uma trilha resistiva de carbono, um pra cada eixo (X e Y). Esse contato roça fisicamente na trilha toda vez que o analógico se move — e como qualquer atrito mecânico repetido, desgasta. Depois de um número alto de ciclos de uso (a estimativa do iFixit é de cerca de 417 horas de uso intenso, mas varia por unidade), o desgaste chega a um ponto em que a posição de "centro/repouso" que o wiper realmente toca já não é mais o centro elétrico exato que o console espera — e essa pequena diferença é lida como movimento, mesmo com o analógico fisicamente parado.<br><br>
+                        <strong>Desgaste mecânico do potenciômetro</strong> — cada analógico é, por dentro, um contato metálico (chamado "wiper") deslizando sobre uma trilha resistiva de carbono, um pra cada eixo (X e Y). Esse contato roça fisicamente na trilha toda vez que o analógico se move — e como qualquer atrito mecânico repetido, desgasta. Depois de um número alto de ciclos de uso (a estimativa de um teste independente é de cerca de 417 horas de uso intenso, mas varia por unidade), o desgaste chega a um ponto em que a posição de "centro/repouso" que o wiper realmente toca já não é mais o centro elétrico exato que o console espera — e essa pequena diferença é lida como movimento, mesmo com o analógico fisicamente parado.<br><br>
                         <strong>Poeira, fiapos e oxidação dentro do módulo</strong> — o encaixe entre a haste do analógico e o potenciômetro não é hermeticamente vedado; poeira fina, fiapos de tecido (de bolsas, estojos) e até oxidação natural do contato metálico podem se acumular ali dentro ao longo dos meses, interferindo no contato elétrico perfeito entre o wiper e a trilha — um tipo de drift que costuma ser intermitente (aparece e some) em vez de constante.<br><br>
                         <strong>Mola de centralização fatigada</strong> — o mecanismo que devolve o analógico pro centro sozinho depois de soltar é feito de peças plásticas e uma mola pequena; uso muito intenso ao longo de anos pode fazer esse retorno ao centro ficar menos preciso, deixando o "repouso" alguns décimos de milímetro fora do centro real.<br><br>
                         <strong>Módulo de reposição de baixa qualidade</strong> — se o controle já passou por uma troca de analógico antes (módulo terceirizado, não original), variação de fabricação em módulos de baixa qualidade é uma causa comum de drift que aparece logo depois do reparo, e não por desgaste de uso.<br><br>
@@ -11349,7 +11397,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
                   <div class="manual-section">
                     <div class="manual-section-title">Ver de verdade (teardown fotografado)</div>
-                    <div class="manual-section-body">Guia completo com fotos passo a passo, incluindo abertura da carcaça e troca de analógico: <strong>iFixit → busque "DualSense teardown" ou "PS5 controller repair"</strong>. É o recurso mais atualizado que existe pra esse aparelho específico — mais confiável que qualquer imagem estática que possamos colocar aqui.</div>
+                    <div class="manual-section-body">Guia completo com fotos passo a passo, incluindo abertura da carcaça e troca de analógico: <strong>busque "DualSense teardown" ou "PS5 controller repair" em guias de desmontagem e reparo</strong>. Esse tipo de guia é o recurso mais atualizado que existe pra esse aparelho específico — mais confiável que qualquer imagem estática que possamos colocar aqui.</div>
                   </div>
 
                   </div>
@@ -11409,11 +11457,6 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         <div class="tabs-inner">
           <button class="tab-btn active" onclick="switchTabMet('met-fundamentos', this)">Fundamentos</button>
           <button class="tab-btn" onclick="switchTabMet('met-pratica', this)">Aprendizagem Prática</button>
-          <button class="tab-btn" onclick="switchTabMet('met-ligas', this)">Ligas</button>
-          <button class="tab-btn" onclick="switchTabMet('met-diagramas', this)">Diagramas de Fase</button>
-          <button class="tab-btn" onclick="switchTabMet('met-processos', this)">Processos</button>
-          <button class="tab-btn" onclick="switchTabMet('met-seguranca', this)">Segurança</button>
-          <button class="tab-btn" onclick="switchTabMet('met-referencias', this)">Referências</button>
           <button class="tab-btn" onclick="switchTabMet('met-faq', this)">Perguntas &amp; Respostas</button>
         </div>
       </div>
@@ -11422,19 +11465,30 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
         <!-- TAB: FUNDAMENTOS -->
         <div class="tab-panel active" id="panel-met-fundamentos">
+          <div class="met-subtabs">
+            <button class="met-subtab-btn active" onclick="switchMetSubTab('met-sub-fundamentos', this)">Fundamentos</button>
+            <button class="met-subtab-btn" onclick="switchMetSubTab('panel-met-ligas', this)">Ligas</button>
+            <button class="met-subtab-btn" onclick="switchMetSubTab('panel-met-diagramas', this)">Diagramas de Fase</button>
+            <button class="met-subtab-btn" onclick="switchMetSubTab('panel-met-processos', this)">Processos</button>
+            <button class="met-subtab-btn" onclick="switchMetSubTab('panel-met-seguranca', this)">Segurança</button>
+            <button class="met-subtab-btn" onclick="switchMetSubTab('panel-met-referencias', this)">Referências</button>
+          </div>
+
+          <!-- SUB-ABA: FUNDAMENTOS -->
+          <div class="met-subpanel active" id="met-sub-fundamentos">
           <div class="sec-title">Fundamentos da Metalurgia</div>
           <div class="sec-subtitle">A estrutura interna que determina por que um metal se comporta como se comporta</div>
 
           <div class="learn-path" style="border:1px solid var(--gold2); border-radius:8px; background:var(--surface2); padding:16px 18px; margin:16px 0 24px;">
             <div style="font-weight:700; font-size:14px; color:var(--ink2); margin-bottom:10px;">🗺️ Trilha de Aprendizado — do básico ao avançado</div>
             <div style="font-size:14px; line-height:1.6; color:var(--ink3);">
-              Os quatro tópicos desta aba seguem uma progressão deliberada, no mesmo eixo usado pela maioria dos cursos de engenharia de materiais: primeiro entender <em>o que existe</em> lá dentro do metal (estrutura cristalina), depois <em>por que ele nunca é perfeito</em> (defeitos e discordâncias), e só então <em>o que dá pra medir e comparar</em> entre metais diferentes (propriedades mecânicas). A trilha continua nas abas seguintes — Ligas → Diagramas de Fase → Processos — até chegar na soldagem branda (Tópico XIII, aba Processos), que só faz sentido depois de entender liga eutética e diagrama de fases.
+              Os quatro tópicos desta aba seguem uma progressão deliberada, no mesmo eixo usado pela maioria dos cursos de engenharia de materiais: primeiro entender <em>o que existe</em> lá dentro do metal (estrutura cristalina), depois <em>por que ele nunca é perfeito</em> (defeitos e discordâncias), e só então <em>o que dá pra medir e comparar</em> entre metais diferentes (propriedades mecânicas). A trilha continua nas sub-abas seguintes — Ligas → Diagramas de Fase → Processos — até chegar na soldagem branda (Tópico XIII, sub-aba Processos), que só faz sentido depois de entender liga eutética e diagrama de fases.
               <br><br>
               <strong>Nível 1 — Introdutório</strong> (Tópico 0): visão geral da disciplina.<br>
               <strong>Nível 2 — Básico</strong> (Tópico I): estrutura cristalina dos metais.<br>
               <strong>Nível 3 — Básico-intermediário</strong> (Tópico II): defeitos, discordâncias, encruamento.<br>
               <strong>Nível 4 — Intermediário</strong> (Tópico III): propriedades mecânicas, o vocabulário que todo o resto da página usa.<br>
-              <em style="opacity:0.85;">Níveis 5+ (intermediário-avançado a avançado) continuam nas abas Ligas, Diagramas de Fase e Processos — é lá, no Tópico XIII, que a solda branda finalmente aparece.</em>
+              <em style="opacity:0.85;">Níveis 5+ (intermediário-avançado a avançado) continuam nas sub-abas Ligas, Diagramas de Fase e Processos — é lá, no Tópico XIII, que a solda branda finalmente aparece.</em>
             </div>
           </div>
 
@@ -11448,7 +11502,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
               <br><br>
               É aqui que a liga entra na história, e de um jeito que já antecipa o Tópico IV desta página (Ligas): ouro puro também é mole demais pra uso prático — anéis de ouro puro riscam com facilidade, por isso quase nunca são fabricados assim. Mas adicionar uma pequena porcentagem de prata ou cobre ao ouro não só muda sua cor (prata deixa mais claro, cobre deixa mais avermelhado), como o deixa visivelmente mais duro. Miodownik explica o mecanismo exato: os átomos do metal adicionado se instalam dentro do próprio reticulado cristalino do ouro, no lugar de átomos de ouro — e essa substituição atômica cria perturbações mecânicas e elétricas que dificultam o movimento das discordâncias. É o mesmo princípio, ele nota, por trás da cor de pedras preciosas: um cristal de óxido de alumínio puro é incolor, mas contaminado com impurezas de ferro vira a safira azul, e contaminado com cromo vira o rubi vermelho — mesma estrutura cristalina, impurezas diferentes, resultado completamente diferente.
               <br><br>
-              A sequência histórica Idade do Cobre → Idade do Bronze → Idade do Ferro é, segundo essa leitura, uma sucessão de ligas cada vez mais fortes. O bronze — cobre com uma pequena adição de estanho — é muito mais resistente que o cobre puro, e por isso valia o esforço de montar rotas comerciais inteiras só para trazer estanho de lugares distantes como a Cornualha (Inglaterra) e o Afeganistão até os centros de civilização do Oriente Médio. O aço, liga de ferro e carbono, é ainda mais forte que o bronze, com a vantagem de usar matéria-prima muito mais abundante — ferro está presente em quase toda rocha, e carbono está em qualquer fonte de combustível. O detalhe que intrigou metalúrgicos por milênios, e que só a mecânica quântica do século XX explicou de fato: diferente do que acontece com cobre, estanho ou bronze, o carbono consegue se espremer nos espaços vazios entre os átomos de ferro dentro do próprio cristal — não substitui um átomo de ferro, como a prata faz no ouro, mas se insere nos interstícios, esticando e distorcendo o reticulado. É a mesma distinção entre solução sólida substitucional e intersticial que o Tópico IV, na aba Ligas, vai formalizar com o vocabulário técnico correto.</div>
+              A sequência histórica Idade do Cobre → Idade do Bronze → Idade do Ferro é, segundo essa leitura, uma sucessão de ligas cada vez mais fortes. O bronze — cobre com uma pequena adição de estanho — é muito mais resistente que o cobre puro, e por isso valia o esforço de montar rotas comerciais inteiras só para trazer estanho de lugares distantes como a Cornualha (Inglaterra) e o Afeganistão até os centros de civilização do Oriente Médio. O aço, liga de ferro e carbono, é ainda mais forte que o bronze, com a vantagem de usar matéria-prima muito mais abundante — ferro está presente em quase toda rocha, e carbono está em qualquer fonte de combustível. O detalhe que intrigou metalúrgicos por milênios, e que só a mecânica quântica do século XX explicou de fato: diferente do que acontece com cobre, estanho ou bronze, o carbono consegue se espremer nos espaços vazios entre os átomos de ferro dentro do próprio cristal — não substitui um átomo de ferro, como a prata faz no ouro, mas se insere nos interstícios, esticando e distorcendo o reticulado. É a mesma distinção entre solução sólida substitucional e intersticial que o Tópico IV, na sub-aba Ligas, vai formalizar com o vocabulário técnico correto.</div>
             <div class="hist-names"><span class="hist-name-tag">metalurgia extrativa</span><span class="hist-name-tag">metalurgia física</span><span class="hist-name-tag">Agricola</span></div>
           </div>
 
@@ -11472,7 +11526,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
             <div class="hist-detail drop-cap">Nenhum cristal metálico real é perfeito, e essa imperfeição é o que torna os metais úteis. <strong>Vacâncias</strong> (posições vazias no reticulado) permitem difusão atômica em estado sólido — mecanismo por trás de tratamentos térmicos como cementação. <strong>Discordâncias</strong> (defeitos lineares, em cunha ou em hélice) são o defeito mais importante: a deformação plástica de um metal acontece pelo movimento de discordâncias através do reticulado, não pela ruptura simultânea de todas as ligações atômicas de um plano — é por isso que metais reais escoam com uma fração minúscula da tensão teórica prevista pela ligação atômica perfeita. <strong>Encruamento</strong> (work hardening) é o oposto: deformar um metal a frio multiplica a densidade de discordâncias, que passam a se emaranhar e bloquear o movimento umas das outras — o metal fica mais duro e resistente, porém menos dúctil, só com deformação mecânica, sem qualquer mudança de composição.</div>
             <div class="hist-detail" style="margin-top:14px;"><strong>Um número pra tornar isso tangível</strong> — dobrar algo tão simples quanto um clipe de papel de metal já envolve, segundo a estimativa de Miodownik, algo da ordem de cem trilhões de discordâncias se movendo simultaneamente dentro dos cristais do metal, e a uma velocidade próxima à do som no material. Cada discordância individual desloca só uma fatia atômica minúscula do cristal, mas a soma de bilhões delas é o que permite que um pedaço de metal se dobre suavemente em vez de simplesmente rachar como um graveto — a mesma lógica, em escala industrial, por trás de por que aço dúctil aceita ser laminado e forjado sem se despedaçar.
               <br><br>
-              <strong>Por que metais diferentes têm dureza tão diferente</strong> — Miodownik conecta diretamente a facilidade de movimento das discordâncias ao ponto de fusão do metal: quanto mais fracamente presos entre si estão os átomos (indicado por um ponto de fusão baixo), mais fácil é para as discordâncias se moverem, e mais mole é o metal. Chumbo, com ponto de fusão baixo, tem discordâncias que se movem com enorme facilidade — por isso é tão mole que se deforma até com a pressão dos dedos. Cobre, com ponto de fusão bem mais alto, oferece muito mais resistência ao movimento das discordâncias, e por isso é sensivelmente mais forte. O mesmo raciocínio explica por que aquecer um metal o deixa mais mole: o calor dá energia térmica extra pras discordâncias se moverem e se reorganizarem livremente — o princípio físico exato por trás do recozimento, já visto na aba Processos (Tópico XI). E o oposto também vale: segundo Miodownik, o projeto de qualquer liga metálica é, no fundo, "a arte de impedir o movimento das discordâncias" — cada átomo de liga introduzido no reticulado gera uma perturbação local que funciona como um obstáculo microscópico, dificultando a passagem das discordâncias e, com isso, endurecendo o metal. É esse mesmo mecanismo, explicado em detalhe no Tópico IV desta página (aba Ligas), que faz ouro ligado com prata ou cobre ser mais duro que ouro puro.
+              <strong>Por que metais diferentes têm dureza tão diferente</strong> — Miodownik conecta diretamente a facilidade de movimento das discordâncias ao ponto de fusão do metal: quanto mais fracamente presos entre si estão os átomos (indicado por um ponto de fusão baixo), mais fácil é para as discordâncias se moverem, e mais mole é o metal. Chumbo, com ponto de fusão baixo, tem discordâncias que se movem com enorme facilidade — por isso é tão mole que se deforma até com a pressão dos dedos. Cobre, com ponto de fusão bem mais alto, oferece muito mais resistência ao movimento das discordâncias, e por isso é sensivelmente mais forte. O mesmo raciocínio explica por que aquecer um metal o deixa mais mole: o calor dá energia térmica extra pras discordâncias se moverem e se reorganizarem livremente — o princípio físico exato por trás do recozimento, já visto na sub-aba Processos (Tópico XI). E o oposto também vale: segundo Miodownik, o projeto de qualquer liga metálica é, no fundo, "a arte de impedir o movimento das discordâncias" — cada átomo de liga introduzido no reticulado gera uma perturbação local que funciona como um obstáculo microscópico, dificultando a passagem das discordâncias e, com isso, endurecendo o metal. É esse mesmo mecanismo, explicado em detalhe no Tópico IV desta página (sub-aba Ligas), que faz ouro ligado com prata ou cobre ser mais duro que ouro puro.
               <br><br>
               <strong>O outro lado da moeda: por que vacâncias existem e não somem</strong> — Callister & Rethwisch tratam a vacância (posição do reticulado normalmente ocupada, mas de onde um átomo está ausente) como o mais simples dos defeitos pontuais, e fazem um ponto importante: é fisicamente impossível produzir um cristal sólido real completamente livre de vacâncias, porque a própria termodinâmica exige a presença delas — cada vacância aumenta a entropia (a desordem) do cristal, e sistemas físicos tendem espontaneamente a estados de maior entropia. O número de vacâncias em equilíbrio, numa dada quantidade de material, cresce exponencialmente com a temperatura, segundo a equação Nv = N·exp(−Qv/kT), onde N é o número total de sítios atômicos, Qv é a energia necessária pra formar uma vacância, T é a temperatura absoluta em kelvin e k é a constante de Boltzmann. Na prática, isso significa que, pra maioria dos metais, a fração de sítios vazios logo abaixo da temperatura de fusão fica na ordem de 10⁻⁴ — ou seja, aproximadamente 1 em cada 10.000 posições do reticulado está vazia bem perto do ponto de fusão, e esse número cai exponencialmente conforme a temperatura diminui.
               <br><br>
@@ -11484,22 +11538,22 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
             <div class="hist-period">📈 Nível 4 · Tópico III</div>
             <div class="hist-event">Propriedades Mecânicas — O Vocabulário Mínimo</div>
             <div class="hist-detail drop-cap">Numa curva tensão-deformação de ensaio de tração, o <strong>limite de escoamento</strong> marca onde a deformação deixa de ser elástica (reversível) e passa a ser plástica (permanente); o <strong>limite de resistência à tração</strong> (UTS) é a tensão máxima suportada antes da ruptura; o <strong>módulo de elasticidade</strong> (módulo de Young) é a inclinação da região elástica — mede rigidez, não resistência. Três conceitos frequentemente confundidos: <strong>dureza</strong> (resistência à deformação localizada, ex. risco/indentação), <strong>resistência</strong> (tensão suportada antes de deformar/romper) e <strong>tenacidade</strong> (energia absorvida antes da fratura, ligada à área sob a curva inteira). Vidro é duro mas nada tenaz — quebra sem aviso. Ferro fundido dúctil é bem menos duro, mas muito mais tenaz. Um material pode ser otimizado numa dessas propriedades às custas de outra — é a base de toda escolha de material em engenharia.</div>
-            <div class="hist-detail" style="margin-top:14px;"><strong>Fim do Nível 4 — pra onde a trilha vai agora</strong> — com estrutura cristalina (Nível 2), defeitos (Nível 3) e esse vocabulário de propriedades mecânicas (Nível 4) estabelecidos, a próxima etapa lógica é entender como misturar metais muda tudo isso — a aba Ligas, a seguir, é exatamente onde a trilha retoma.</div>
+            <div class="hist-detail" style="margin-top:14px;"><strong>Fim do Nível 4 — pra onde a trilha vai agora</strong> — com estrutura cristalina (Nível 2), defeitos (Nível 3) e esse vocabulário de propriedades mecânicas (Nível 4) estabelecidos, a próxima etapa lógica é entender como misturar metais muda tudo isso — a sub-aba Ligas, a seguir, é exatamente onde a trilha retoma.</div>
             <div class="hist-names"><span class="hist-name-tag">limite de escoamento</span><span class="hist-name-tag">UTS</span><span class="hist-name-tag">dureza vs. tenacidade</span></div>
           </div>
 
-        </div>
-        <!-- /panel-met-fundamentos -->
+          </div>
+          <!-- /met-sub-fundamentos -->
 
-        <!-- TAB: LIGAS -->
-        <div class="tab-panel" id="panel-met-ligas">
+        <!-- SUB-ABA: LIGAS -->
+        <div class="met-subpanel" id="panel-met-ligas">
           <div class="sec-title">Ligas Metálicas</div>
           <div class="sec-subtitle">Por que quase nenhum metal de uso real é puro</div>
 
           <div class="hist-entry">
             <div class="hist-period">🧩 Tópico IV</div>
             <div class="hist-event">O Que É Uma Liga — Soluções Sólidas e Intermetálicos</div>
-            <div class="hist-detail drop-cap">Uma liga é uma mistura de dois ou mais elementos, majoritariamente metálicos, com propriedades distintas dos metais puros que a compõem. Numa <strong>solução sólida substitucional</strong>, átomos do soluto substituem átomos do solvente no mesmo reticulado (ex. cobre e níquel, totalmente miscíveis); numa <strong>solução sólida intersticial</strong>, átomos pequenos (como carbono) se alojam nos espaços vazios entre átomos maiores do reticulado (o caso do aço). As <strong>regras de Hume-Rothery</strong> preveem quando dois metais formam solução sólida extensa: tamanho atômico similar (diferença menor que ~15%), mesma estrutura cristalina, eletronegatividade próxima e valência compatível. Quando essas condições não são satisfeitas, formam-se <strong>compostos intermetálicos</strong> — fases com composição e estrutura cristalina próprias, geralmente duras e frágeis (ex. Cu6Sn5, que se forma na interface entre solda de estanho e uma trilha de cobre — relevante adiante, na aba de Diagramas de Fase).</div>
+            <div class="hist-detail drop-cap">Uma liga é uma mistura de dois ou mais elementos, majoritariamente metálicos, com propriedades distintas dos metais puros que a compõem. Numa <strong>solução sólida substitucional</strong>, átomos do soluto substituem átomos do solvente no mesmo reticulado (ex. cobre e níquel, totalmente miscíveis); numa <strong>solução sólida intersticial</strong>, átomos pequenos (como carbono) se alojam nos espaços vazios entre átomos maiores do reticulado (o caso do aço). As <strong>regras de Hume-Rothery</strong> preveem quando dois metais formam solução sólida extensa: tamanho atômico similar (diferença menor que ~15%), mesma estrutura cristalina, eletronegatividade próxima e valência compatível. Quando essas condições não são satisfeitas, formam-se <strong>compostos intermetálicos</strong> — fases com composição e estrutura cristalina próprias, geralmente duras e frágeis (ex. Cu6Sn5, que se forma na interface entre solda de estanho e uma trilha de cobre — relevante adiante, na sub-aba de Diagramas de Fase).</div>
             <div class="hist-names"><span class="hist-name-tag">solução sólida</span><span class="hist-name-tag">Hume-Rothery</span><span class="hist-name-tag">intermetálicos</span></div>
           </div>
 
@@ -11513,15 +11567,15 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
           <div class="hist-entry">
             <div class="hist-period">🥉 Tópico VI</div>
             <div class="hist-event">Ligas Não-Ferrosas do Dia a Dia</div>
-            <div class="hist-detail drop-cap">Ligas de <strong>alumínio</strong> são classificadas por série de quatro dígitos — a série 6000 (Al-Mg-Si), estrutural e de uso geral, e a série 7000 (Al-Zn), de alta resistência, usada em aeronaves. <strong>Latão</strong> (cobre-zinco) e <strong>bronze</strong> (cobre-estanho) são frequentemente confundidos, mas são ligas historicamente e quimicamente distintas — o bronze é anterior por milênios e deu nome à própria Idade do Bronze. E, no ponto de contato direto com o que já existe neste site em Engenharia Elétrica: as <strong>ligas de solda</strong> também são ligas metálicas propriamente ditas — a tradicional estanho-chumbo eutética (Sn63Pb37) e as modernas ligas lead-free à base de estanho-prata-cobre (SAC, ex. SAC305), adotadas pela diretiva europeia RoHS para eliminar chumbo de produtos eletrônicos de consumo. A aba de Diagramas de Fase, a seguir, mostra exatamente por que a composição eutética foi historicamente preferida para solda.</div>
+            <div class="hist-detail drop-cap">Ligas de <strong>alumínio</strong> são classificadas por série de quatro dígitos — a série 6000 (Al-Mg-Si), estrutural e de uso geral, e a série 7000 (Al-Zn), de alta resistência, usada em aeronaves. <strong>Latão</strong> (cobre-zinco) e <strong>bronze</strong> (cobre-estanho) são frequentemente confundidos, mas são ligas historicamente e quimicamente distintas — o bronze é anterior por milênios e deu nome à própria Idade do Bronze. E, no ponto de contato direto com o que já existe neste site em Engenharia Elétrica: as <strong>ligas de solda</strong> também são ligas metálicas propriamente ditas — a tradicional estanho-chumbo eutética (Sn63Pb37) e as modernas ligas lead-free à base de estanho-prata-cobre (SAC, ex. SAC305), adotadas pela diretiva europeia RoHS para eliminar chumbo de produtos eletrônicos de consumo. A sub-aba de Diagramas de Fase, a seguir, mostra exatamente por que a composição eutética foi historicamente preferida para solda.</div>
             <div class="hist-names"><span class="hist-name-tag">ligas de alumínio</span><span class="hist-name-tag">latão vs. bronze</span><span class="hist-name-tag">Sn63Pb37</span><span class="hist-name-tag">SAC305</span></div>
           </div>
 
         </div>
         <!-- /panel-met-ligas -->
 
-        <!-- TAB: DIAGRAMAS DE FASE -->
-        <div class="tab-panel" id="panel-met-diagramas">
+        <!-- SUB-ABA: DIAGRAMAS DE FASE -->
+        <div class="met-subpanel" id="panel-met-diagramas">
           <div class="sec-title">Diagramas de Fase</div>
           <div class="sec-subtitle">O mapa que prevê o que acontece dentro do metal em cada temperatura e composição</div>
 
@@ -11549,8 +11603,8 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         </div>
         <!-- /panel-met-diagramas -->
 
-        <!-- TAB: PROCESSOS -->
-        <div class="tab-panel" id="panel-met-processos">
+        <!-- SUB-ABA: PROCESSOS -->
+        <div class="met-subpanel" id="panel-met-processos">
           <div class="sec-title">Processos de Conformação e União</div>
           <div class="sec-subtitle">Como o metal sai do estado bruto e vira peça</div>
 
@@ -11585,8 +11639,8 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         </div>
         <!-- /panel-met-processos -->
 
-        <!-- TAB: SEGURANÇA -->
-        <div class="tab-panel" id="panel-met-seguranca">
+        <!-- SUB-ABA: SEGURANÇA -->
+        <div class="met-subpanel" id="panel-met-seguranca">
           <div class="sec-title">Segurança em Processos Metalúrgicos</div>
           <div class="sec-subtitle">Os riscos mudam de escala conforme a temperatura do processo, mas nunca desaparecem</div>
 
@@ -11607,8 +11661,8 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
         </div>
         <!-- /panel-met-seguranca -->
 
-        <!-- TAB: REFERÊNCIAS -->
-        <div class="tab-panel" id="panel-met-referencias">
+        <!-- SUB-ABA: REFERÊNCIAS -->
+        <div class="met-subpanel" id="panel-met-referencias">
           <div class="sec-title">Livros &amp; Referências</div>
           <div class="sec-subtitle">Pra ir além do que dá pra cobrir numa página só</div>
 
@@ -11635,6 +11689,12 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
         </div>
         <!-- /panel-met-referencias -->
+        </div>
+        <!-- /panel-met-fundamentos -->
+
+
+
+
 
         <!-- TAB: PERGUNTAS & RESPOSTAS -->
         <div class="tab-panel" id="panel-met-faq">
@@ -11644,14 +11704,14 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
           <div class="hist-entry">
             <div class="hist-period">❓ Pergunta 1</div>
             <div class="hist-event">Qual a real diferença entre soldagem industrial e a solda de estanho que eu uso em placa eletrônica?</div>
-            <div class="hist-detail drop-cap">São processos fisicamente diferentes, apesar do nome parecido em português. Na soldagem industrial por fusão (arco, MIG, TIG), o próprio metal das peças funde e se une — temperaturas acima de 1500°C pra aço. Na solda de estanho (soldering), o metal-base (a trilha de cobre, o terminal do componente) nunca chega perto de fundir — só o fio de estanho, entre 180°C e 250°C, funde e adere por molhabilidade e capilaridade. É a mesma distinção que existe entre soldagem e brasagem, coberta em detalhe na aba Processos, Tópico XIII.</div>
+            <div class="hist-detail drop-cap">São processos fisicamente diferentes, apesar do nome parecido em português. Na soldagem industrial por fusão (arco, MIG, TIG), o próprio metal das peças funde e se une — temperaturas acima de 1500°C pra aço. Na solda de estanho (soldering), o metal-base (a trilha de cobre, o terminal do componente) nunca chega perto de fundir — só o fio de estanho, entre 180°C e 250°C, funde e adere por molhabilidade e capilaridade. É a mesma distinção que existe entre soldagem e brasagem, coberta em detalhe na sub-aba Processos, Tópico XIII.</div>
             <div class="hist-names"><span class="hist-name-tag">fusão vs. molhabilidade</span></div>
           </div>
 
           <div class="hist-entry">
             <div class="hist-period">❓ Pergunta 2</div>
             <div class="hist-event">Por que um aço temperado fica tão duro, mas quebra fácil?</div>
-            <div class="hist-detail drop-cap">Porque a têmpera (resfriamento brusco a partir da austenita) não dá tempo pro carbono se difundir e formar a estrutura lamelar de ferrita+cementita (perlita) — em vez disso, o carbono fica "preso" numa estrutura cristalina distorcida chamada martensita. Essa distorção é o que gera a dureza extrema, mas também elimina a capacidade do reticulado de acomodar deformação plástica — não há discordâncias se movendo livremente pra absorver energia de impacto, então a peça racha em vez de dobrar. É por isso que peças temperadas quase sempre passam por revenimento em seguida — ver aba Processos, Tópico XI.</div>
+            <div class="hist-detail drop-cap">Porque a têmpera (resfriamento brusco a partir da austenita) não dá tempo pro carbono se difundir e formar a estrutura lamelar de ferrita+cementita (perlita) — em vez disso, o carbono fica "preso" numa estrutura cristalina distorcida chamada martensita. Essa distorção é o que gera a dureza extrema, mas também elimina a capacidade do reticulado de acomodar deformação plástica — não há discordâncias se movendo livremente pra absorver energia de impacto, então a peça racha em vez de dobrar. É por isso que peças temperadas quase sempre passam por revenimento em seguida — ver sub-aba Processos, Tópico XI.</div>
             <div class="hist-names"><span class="hist-name-tag">martensita</span><span class="hist-name-tag">revenimento</span></div>
           </div>
 
@@ -11686,7 +11746,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
           <div class="hist-entry">
             <div class="hist-period">❓ Pergunta 7</div>
             <div class="hist-event">Dá pra soldar com estanho com chumbo em casa com segurança, ou é melhor evitar de vez?</div>
-            <div class="hist-detail drop-cap">Dá, com os cuidados já cobertos na aba Segurança: ventilação (mesmo que seja um pequeno exaustor de bancada, os fumos do fluxo são o risco respiratório mais relevante — o vapor de chumbo metálico praticamente não existe nas temperaturas de solda branda), e lavar as mãos depois de manusear o fio de solda antes de comer ou levar a mão à boca, já que a via de exposição ao chumbo que importa é ingestão/inalação de partícula, não contato de pele. Não é motivo pra abandonar o hobby, é motivo pra manter duas ou três práticas de higiene básicas.</div>
+            <div class="hist-detail drop-cap">Dá, com os cuidados já cobertos na sub-aba Segurança: ventilação (mesmo que seja um pequeno exaustor de bancada, os fumos do fluxo são o risco respiratório mais relevante — o vapor de chumbo metálico praticamente não existe nas temperaturas de solda branda), e lavar as mãos depois de manusear o fio de solda antes de comer ou levar a mão à boca, já que a via de exposição ao chumbo que importa é ingestão/inalação de partícula, não contato de pele. Não é motivo pra abandonar o hobby, é motivo pra manter duas ou três práticas de higiene básicas.</div>
             <div class="hist-names"><span class="hist-name-tag">exposição ao chumbo</span><span class="hist-name-tag">ventilação</span></div>
           </div>
 
@@ -11729,40 +11789,50 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                       <div class="met-tool-avatar-box">
                         <div class="met-tool-circle-bg"><span class="met-tool-emoji">🧴</span></div>
                         <div class="met-tool-img-wrapper">
-                          <img src="Images\Icons\Analógicos\Fluxogel.webp" alt="Fluxo Pastoso AMTECH NC-559-ASM" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                          <img src="Images\Icons\Analógicos\Fluxogel.webp" alt="Fluxo pastoso RMA-223" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Fluxo (ROL0/ROL1/RMA)</div>
+                      <div class="met-tool-name">Fluxo pastoso RMA-223</div>
                     </div>
 
                     <div class="met-tool-card">
                       <div class="met-tool-avatar-box">
                         <div class="met-tool-circle-bg"><span class="met-tool-emoji">🧵</span></div>
                         <div class="met-tool-img-wrapper">
-                          <img src="Images\Icons\Analógicos\Fiodesolda.webp" alt="Estanho 0,5mm 40g 63/37 Sn/pb Fio De Solda Fino" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                          <img src="Images\Icons\Analógicos\Fiodesolda.webp" alt="Estanho Sn63/Pb37 0,5mm c/resina" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Fio de Solda (Estanho)</div>
+                      <div class="met-tool-name">Estanho Sn63/Pb37 0,5mm c/resina</div>
                     </div>
 
                     <div class="met-tool-card">
                       <div class="met-tool-avatar-box">
                         <div class="met-tool-circle-bg"><span class="met-tool-emoji">➰</span></div>
                         <div class="met-tool-img-wrapper">
-                          <img src="Images\Icons\Analógicos\Malhadessoldadora.webp" alt="Malha Dessoldadora De Cobre Fita Limpa Solda Mechanic R300" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                          <img src="Images\Icons\Analógicos\Malhadessoldadora.webp" alt="Malha dessoldadora Mechanic R300 2,0mm" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Malha Dessoldadora</div>
+                      <div class="met-tool-name">Malha dessoldadora Mechanic R300 2,0mm</div>
+                    </div>
+
+                    <div class="met-tool-card">
+                      <div class="met-tool-avatar-box">
+                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">💨</span></div>
+                        <div class="met-tool-img-wrapper">
+                          <img src="Images\Icons\Analógicos\Sugadordesolda.webp" alt="Sugador de Solda Anti-estático Hikari HK-208 ESD" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                        </div>
+                      </div>
+                      <div class="met-tool-name">Sugador de Solda Anti-estático Hikari HK-208 ESD</div>
                     </div>
 
                     <div class="met-tool-card">
                       <div class="met-tool-avatar-box">
                         <div class="met-tool-circle-bg"><span class="met-tool-emoji">🧪</span></div>
                         <div class="met-tool-img-wrapper">
-                          <img src="Images\Icons\Analógicos\Álcoolisopropílico.webp" alt="Álcool Isopropílico 99,8% 1L Quimivida" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                          <img src="Images\Icons\Analógicos\Álcoolisopropílico.webp" alt="Álcool Isopropílico 99,8%" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Álcool Isopropílico</div>
+                      <div class="met-tool-name">Álcool Isopropílico 99,8%</div>
                     </div>
 
                     <div class="met-tool-card">
@@ -11772,7 +11842,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                           <img src="Images\Icons\Analógicos\Pincelantiestatico.webp" alt="Pincel antiestático" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Pincel Antiestático</div>
+                      <div class="met-tool-name">Pincel antiestático (ESD)</div>
                     </div>
 
                     <div class="met-tool-card">
@@ -11782,7 +11852,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                           <img src="Images\Icons\Analógicos\Pinçaantiestatica.webp" alt="Pinça antiestática" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
                         </div>
                       </div>
-                      <div class="met-tool-name">Pinça Antiestática</div>
+                      <div class="met-tool-name">Pinça antiestática (ESD)</div>
                     </div>
 
                     <div class="met-tool-card">
@@ -11875,7 +11945,7 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
                     <div style="margin-top:24px; padding-top:18px; border-top:1px dashed var(--border2);">
                       <div style="font-weight:700; font-size:14px; color:var(--ink2); margin-bottom:8px;">📚 Estudo a mais — por que o analógico original dura tão pouco, e o que muda de verdade no substituto</div>
-                      <p>Isso não é impressão nem exagero de quem joga muito: existe número oficial por trás. O módulo de analógico do DualSense é fabricado pela ALPS (Alps Alpine, mesma empresa que faz teclado e trackpad de notebook), e a própria folha de especificação técnica da peça — divulgada pela ALPS e usada como base pela investigação da iFixit — declara vida útil de <strong>2 milhões de ciclos de inclinação</strong> para o potenciômetro, e só <strong>500 mil ciclos</strong> para a função de clique (quando o analógico é pressionado pra dentro). Traduzindo ciclo em tempo real de uso, a própria iFixit chegou a uma estimativa de aproximadamente <strong>417 horas de uso intenso</strong> antes do desgaste crítico — algo entre 4 e 7 meses pra quem joga cerca de 2 horas por dia em jogos de uso moderado do analógico. Jogos de tiro em primeira pessoa competitivos, que exigem movimento constante e brusco do stick pra mira, consomem esses ciclos bem mais rápido que a média — é plausível o desgaste crítico aparecer em bem menos tempo que os 4-7 meses citados, inclusive em torno de 2 meses, dependendo do gênero de jogo e da intensidade de uso.</p>
+                      <p>Isso não é impressão nem exagero de quem joga muito: existe número oficial por trás. O módulo de analógico do DualSense é fabricado pela ALPS (Alps Alpine, mesma empresa que faz teclado e trackpad de notebook), e a própria folha de especificação técnica da peça — divulgada pela ALPS e usada como base por uma investigação independente de desgaste — declara vida útil de <strong>2 milhões de ciclos de inclinação</strong> para o potenciômetro, e só <strong>500 mil ciclos</strong> para a função de clique (quando o analógico é pressionado pra dentro). Traduzindo ciclo em tempo real de uso, essa mesma investigação chegou a uma estimativa de aproximadamente <strong>417 horas de uso intenso</strong> antes do desgaste crítico — algo entre 4 e 7 meses pra quem joga cerca de 2 horas por dia em jogos de uso moderado do analógico. Jogos de tiro em primeira pessoa competitivos, que exigem movimento constante e brusco do stick pra mira, consomem esses ciclos bem mais rápido que a média — é plausível o desgaste crítico aparecer em bem menos tempo que os 4-7 meses citados, inclusive em torno de 2 meses, dependendo do gênero de jogo e da intensidade de uso.</p>
                       <p>O mecanismo de falha, resumido: o potenciômetro usa um contato deslizante de carbono (wiper) roçando fisicamente numa trilha resistiva a cada movimento — é fricção mecânica real, com desgaste físico do material a cada ciclo, não é um sensor eletrônico que simplesmente "lê" a posição sem contato. Some a isso dois fatores de projeto que aceleram o problema: o pequeno vão ao redor do eixo do analógico, necessário pra permitir o movimento suave em todas as direções, também é grande o bastante pra deixar poeira e sujeira entrarem no mecanismo; e a mola de centralização do stick pode esticar e perder força de retorno ao centro com o uso, mesmo sem desgaste do potenciômetro em si.</p>
                       <p>Isso não é exclusivo do PS5: o mesmo tipo de módulo (ou variações da mesma família ALPS) é usado como componente de prateleira em Xbox e no Joy-Con do Nintendo Switch, e os três já enfrentaram processos judiciais coletivos por drift nos Estados Unidos. Um levantamento de mercado (2026) estimou o custo do módulo ALPS pra fabricante em torno de US$ 0,40 a 0,60 por unidade (US$ 0,80 a 1,20 pelo par usado num controle), contra aproximadamente US$ 1,50 a 2,50 por unidade de um módulo Hall Effect equivalente — uma diferença de custo real na escala de produção de um console, frequentemente citada como o motivo prático de nenhuma fabricante ter trocado o padrão de fábrica até agora, apesar da tecnologia sem desgaste já existir e já ser usada por fornecedores terceirizados havia anos.</p>
                       <p>É exatamente essa diferença de mecanismo — contato físico com desgaste garantido por design vs. leitura magnética sem contato — que explica por que os módulos Hall Effect e TMR do passo 10 são chamados de solução "permanente": não é uma versão melhorada do mesmo princípio, é um princípio físico diferente, sem superfície de atrito nenhuma pra desgastar.</p>
@@ -12009,13 +12079,13 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
                   </div>
                   <div class="hist-detail drop-cap"><strong>Dessoldar solda sem chumbo</strong> é desfazer uma junta feita com uma liga de estanho sem chumbo — na eletrônica atual, quase sempre uma liga SAC (estanho, prata e cobre). O princípio é o de qualquer dessoldagem: derreter a solda e retirá-la com malha, bomba ou outro recurso. A diferença é que essa solda exige mais calor, molha e escorre pior, e perdoa menos os erros de temperatura e de tempo. Por isso o trabalho depende menos de força bruta (subir a temperatura do ferro) e mais de método: bom fluxo, boa transferência de calor e a ferramenta certa para cada junta.</div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>Por que é mais difícil (a visão dos materiais)</strong> — a solda eutética Sn63Pb37 funde a 183 °C, enquanto a SAC305 (96,5% Sn, 3,0% Ag, 0,5% Cu) funde numa faixa de cerca de 217 a 220 °C: são mais de 30 °C de diferença, e é isso que torna a junta mais teimosa. Além do calor, artigos técnicos sobre retrabalho eletrônico apontam que as ligas sem chumbo molham e escorrem menos que a de estanho-chumbo, o que faz a malha e a bomba renderem menos, e que tendem a deixar um acabamento fosco e granulado. Por isso a aparência da junta, sozinha, não revela a liga usada — se a origem importar, confira a documentação do aparelho. Há ainda um efeito de segunda ordem: quanto mais quente a ponta, mais depressa o fluxo se consome e mais a superfície oxida, o que piora o escoamento da solda em vez de ajudar.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Preparação e ferramentas</strong> — escolha a maior ponta que caiba entre as juntas, como recomenda a iFixit: ponta grande entrega calor mais depressa. Placas com muita massa térmica (planos de terra, componentes grandes) pedem um ferro de potência alta ou, no mínimo, com boa recuperação térmica. Quanto à temperatura, a iFixit sugere 375 °C para dessoldar solda sem chumbo (350 °C para a com chumbo); um artigo técnico sobre retrabalho observa que pontas entre 650 e 700 °F (cerca de 345 a 370 °C) já derretem essa solda e que subir além disso não acelera o processo, só acrescenta risco. Aplique fluxo antes de começar: ele remove óxidos, ajuda a transferir calor e faz a solda escoar, e os fluxos à base de breu costumam ser mais fáceis de usar com solda sem chumbo. Fixe a placa, use óculos e, em ambiente fechado, um extrator de fumaça. Nunca dessolde em aparelho ligado, e tome cuidado extra perto de baterias de lítio.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>O truque mais usado: acrescentar solda nova</strong> — adicionar solda fresca à junta, de preferência com chumbo, melhora a transferência de calor, traz fluxo novo e baixa a temperatura de fusão da mistura, o que facilita a retirada (indicado em guias da Wevolver e da Clever Creations). É um recurso de bancada: se a placa precisa continuar totalmente sem chumbo (por exemplo, um produto sujeito à RoHS), use solda nova sem chumbo ou a liga de remoção sem chumbo.<br><br>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Preparação e ferramentas</strong> — escolha a maior ponta que caiba entre as juntas: ponta grande entrega calor mais depressa. Placas com muita massa térmica (planos de terra, componentes grandes) pedem um ferro de potência alta ou, no mínimo, com boa recuperação térmica. Quanto à temperatura, uma referência comum é 375 °C para dessoldar solda sem chumbo (350 °C para a com chumbo); a prática de retrabalho indica que pontas entre 650 e 700 °F (cerca de 345 a 370 °C) já derretem essa solda e que subir além disso não acelera o processo, só acrescenta risco. Aplique fluxo antes de começar: ele remove óxidos, ajuda a transferir calor e faz a solda escoar, e os fluxos à base de breu costumam ser mais fáceis de usar com solda sem chumbo. Fixe a placa, use óculos e, em ambiente fechado, um extrator de fumaça. Nunca dessolde em aparelho ligado, e tome cuidado extra perto de baterias de lítio.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>O truque mais usado: acrescentar solda nova</strong> — adicionar solda fresca à junta, de preferência com chumbo, melhora a transferência de calor, traz fluxo novo e baixa a temperatura de fusão da mistura, o que facilita a retirada (prática comum de bancada). É um recurso de bancada: se a placa precisa continuar totalmente sem chumbo (por exemplo, um produto sujeito à RoHS), use solda nova sem chumbo ou a liga de remoção sem chumbo.<br><br>
 <strong>Com malha</strong> — escolha uma malha um pouco mais larga que a junta, passe fluxo, apoie um trecho limpo sobre a solda e pressione a ponta firme contra a malha por 2 a 3 segundos, para que ela puxe a solda derretida por capilaridade. Quando satura (a cor passa de cobre para prata), deslize para um trecho novo e, no fim, levante malha e ponta juntas. Se não absorver, use mais fluxo, suba um pouco a temperatura ou troque a malha, já que ela oxida com a idade.<br><br>
 <strong>Com bomba</strong> — arme o êmbolo, derreta a junta, aproxime o bico da solda derretida sem encostar na ponta e dispare o botão. Se sobrar solda ou ela demorar a derreter, acrescente solda nova, reaqueça e repita.<br><br>
-<strong>Liga de remoção (baixa temperatura)</strong> — ligas como as dos kits de remoção SMD (por exemplo, o Chip Quik) se misturam à solda existente e a mantêm mole por mais tempo, até você retirá-la com malha ou bomba. A DigiKey orienta usar liga de remoção sem chumbo em juntas sem chumbo; o fabricante indica retirar a liga das ilhas com malha e fluxo, ou aquecê-la e limpá-la com cotonete, e então aplicar solda nova para diluir o que restou.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Cuidados</strong> — não aqueça a mesma região por mais de 10 segundos seguidos: a ilha pode descolar da placa e o componente se danificar (iFixit). Se a solda não derreter, espere esfriar e tente de novo com fluxo e solda nova. O calor excessivo e repetido também pode empenar ou delaminar a placa, risco citado em artigos de retrabalho. Depois de usar liga de baixa temperatura, limpe a ponta: a mistura com a solda comum pode gerar juntas quebradiças (iFixit). Retire o componente com a pinça; se o terminal estiver preso, aqueça a ilha e mova-o com delicadeza, sem forçar. Ao terminar, limpe os resíduos de fluxo com álcool isopropílico e escova macia: fluxos de breu são pegajosos, e os solúveis em água precisam ser removidos para não causar corrosão ou curto.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este guia reúne informações básicas coletadas na internet sobre este tópico e ainda será aprofundado. Fontes consultadas: iFixit, <em>How To Solder and Desolder Connections</em> (ifixit.com/Guide/How+To+Solder+and+Desolder+Connections/750); Wevolver, <em>How to remove solder from a circuit board</em>; Clever Creations, <em>Desoldering: The 7-Point Essential Guide</em>; SMT007 (iConnect007), <em>Reworking Lead-Free Solder in PCB Assembly</em> e <em>Lead-Free Solder and the Rework Process</em>; DigiKey, fórum técnico sobre liga de remoção; IEEE TechNav, verbete <em>Soldering</em>. As temperaturas variam entre fontes e dependem da ponta, da massa da placa e da liga: trate os valores acima como ponto de partida, não como regra.</div>
+<strong>Liga de remoção (baixa temperatura)</strong> — ligas como as dos kits de remoção SMD (por exemplo, o Chip Quik) se misturam à solda existente e a mantêm mole por mais tempo, até você retirá-la com malha ou bomba. Recomenda-se usar liga de remoção sem chumbo em juntas sem chumbo; o fabricante indica retirar a liga das ilhas com malha e fluxo, ou aquecê-la e limpá-la com cotonete, e então aplicar solda nova para diluir o que restou.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Cuidados</strong> — não aqueça a mesma região por mais de 10 segundos seguidos: a ilha pode descolar da placa e o componente se danificar. Se a solda não derreter, espere esfriar e tente de novo com fluxo e solda nova. O calor excessivo e repetido também pode empenar ou delaminar a placa, risco citado em artigos de retrabalho. Depois de usar liga de baixa temperatura, limpe a ponta: a mistura com a solda comum pode gerar juntas quebradiças. Retire o componente com a pinça; se o terminal estiver preso, aqueça a ilha e mova-o com delicadeza, sem forçar. Ao terminar, limpe os resíduos de fluxo com álcool isopropílico e escova macia: fluxos de breu são pegajosos, e os solúveis em água precisam ser removidos para não causar corrosão ou curto.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este guia reúne informações básicas coletadas na internet sobre este tópico e ainda será aprofundado. O conteúdo é resultado de uma análise comparativa de várias fontes técnicas e de bancada, e não a cópia de uma única referência; os valores e as recomendações são o ponto final dessa análise e podem ser ajustados. As temperaturas variam entre fontes e dependem da ponta, da massa da placa e da liga: trate os valores acima como ponto de partida, não como regra.</div>
                   <div class="hist-names"><span class="hist-name-tag">solda sem chumbo</span><span class="hist-name-tag">SAC305</span><span class="hist-name-tag">183 vs 217–220 °C</span><span class="hist-name-tag">fluxo</span><span class="hist-name-tag">massa térmica</span><span class="hist-name-tag">malha dessoldadora</span><span class="hist-name-tag">bomba dessoldadora</span><span class="hist-name-tag">liga de remoção</span></div>
                 </div>
               </div>
@@ -12107,14 +12177,14 @@ body[data-theme="direito"]{background-color:#fbf2c0;}
 
                   </div>
                   <div class="hist-detail drop-cap"><strong>Ferramentas de solda e dessoldagem são consumíveis</strong>, e a que mais se desgasta é a <strong>ponta do ferro</strong>. Saber distinguir uma ponta apenas suja ou oxidada (que se recupera) de uma ponta realmente gasta (que precisa ser trocada) evita dois erros comuns: jogar fora uma ponta boa e insistir em uma ponta acabada, o que alonga o tempo de aquecimento, danifica as ilhas da placa e deixa as juntas pouco confiáveis. Este guia trata primeiro da ponta e do elemento aquecedor e, depois, da malha e da bomba dessoldadora.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Por que a ponta desgasta (a visão dos materiais)</strong> — uma ponta é feita de camadas. O núcleo de <strong>cobre</strong> conduz o calor, mas o cobre puro se dissolve rápido na solda derretida; por isso ele é revestido por uma camada de <strong>ferro</strong> (às vezes com níquel), que resiste à erosão e forma a área de trabalho, e essa área é mantida <strong>estanhada</strong>, o que protege o ferro da oxidação e ajuda a solda a molhar. Quando a camada de ferro racha ou é consumida, o cobre fica exposto à umidade, ao oxigênio e ao estanho, e a ponta falha depressa. A RS DesignSpark descreve cinco modos de falha: trinca do revestimento por pressão excessiva, choque térmico, desgaste por abrasão, perda de molhamento (<em>de-wetting</em>) e corrosão. O calor acelera tudo: a oxidação cresce com a temperatura, e fluxos agressivos e produtos de limpeza em contato com a ponta quente também corroem o revestimento (SMT007).</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Como inspecionar a ponta</strong> — com o ferro frio, olhe a área de trabalho, de preferência com lupa. Segundo a iFixit, <strong>pontos escavados (pits), furos, rachaduras, deformações ou cobre exposto</strong> são sinais de dano físico: a recomendação é simplesmente trocar a ponta. O artigo da SMT007 acrescenta que um revestimento íntegro não mostra pits, furos nem trincas, e a iFixit diz que um pit com preto dentro já pede a troca. O revestimento perdido não se restaura.<br><br>
-<strong>O que ainda dá para recuperar</strong> — se a ponta está escurecida e a solda <strong>forma bolinhas e "empoça" em vez de se espalhar</strong>, o problema costuma ser oxidação da superfície (SMT007), e não desgaste do metal. A iFixit indica limpar, estanhar de novo e, se a solda continuar sem molhar depois de uma ou duas tentativas, usar o tinner. Se mesmo assim a área de trabalho não aceitar solda, ou se houver sinais físicos de dano, é hora de trocar. Lixa e lima nunca devem ser usadas: danificam o revestimento e causam falha precoce (SMT007), e a iFixit as trata como um recurso de última hora.<br><br>
-<strong>Ponta quente que não derrete a solda</strong> — a oxidação pode formar uma barreira térmica entre a ponta e a solda (SMT007). Se a ponta está limpa e estanhada e o ferro continua fraco, a iFixit sugere verificar o <strong>elemento aquecedor</strong>: retire a ponta, procure rachaduras ou danos e troque o elemento se for preciso; em ferros de cartucho, troque o cartucho inteiro (algumas estações até mostram um erro quando o elemento falhou).</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Como fazer a ponta durar</strong> — mantenha-a estanhada quando não estiver em uso e estanhe-a depois de cada uso (iFixit, RS). Desligue o ferro nas pausas, porque a oxidação é muito mais lenta em temperatura ambiente, e use a temperatura mínima necessária; a RS observa que, se você precisa trabalhar acima de 375 °C para manter o ritmo, talvez esteja usando o ferro errado. Limpe com lã de latão (que não danifica o revestimento) ou com esponja de celulose úmida, não molhada, com água deionizada — esponja encharcada favorece a perda de molhamento e o choque térmico (RS, SMT007). Não mergulhe a ponta no fluxo e evite produtos de limpeza agressivos. Use sempre a ponta do tamanho certo, sem forçá-la contra a placa, e mantenha o suporte do ferro em bom estado, com a mola e o funil íntegros, para o ferro não cair nem bater. A iFixit lembra que uma ponta bem cuidada dura anos: se as suas acabam rápido, vale rever os hábitos antes de culpar a ponta.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Malha e bomba dessoldadora</strong> — as fontes aqui são mais frágeis (manuais e fóruns de bancada), então trate como orientação prática. A <strong>malha</strong> perde a capacidade de absorver quando oxida ou fica seca: a solda forma bolinhas sobre ela em vez de entrar na trama. Antes de descartar, confira o fluxo, o contato da ponta com a malha e o calor suficiente na junta; se nada ajudar, corte o trecho gasto ou troque o rolo. A <strong>bomba</strong> perde sucção quando o anel de vedação do êmbolo se desgasta ou quando o bico entope de solda; um teste é tapar o bico com o dedo e sentir o vácuo, e limpar o bico e o corpo ajuda antes de trocar peças. O bico das bombas costuma ser de Teflon, em que a solda não gruda, mas ele também derrete: o manual do MIT lembra que não é indestrutível e não deve ser encostado com força no ferro. Em estações de dessoldagem a vácuo, o manual da Hakko lista bocal entupido, filtro cheio de solda e vazamento de ar em peças gastas entre as causas de a solda não ser sugada.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Decisão rápida</strong> — <strong>troque</strong> a ponta se houver cobre exposto, pits ou furos, rachaduras, deformação ou se a solda não molhar nem depois de limpar, estanhar e usar o tinner. <strong>Recupere</strong> se a ponta só está escura e suja e passa a molhar depois da limpeza. Continuar usando uma ponta gasta aumenta o risco de dano às ilhas, o tempo de contato e a chance de juntas ruins (Rapid Electronics).<br><br>
-<strong>Em construção</strong> — este guia reúne informações básicas coletadas na internet e ainda será aprofundado, por exemplo com a recuperação de pontas muito oxidadas e a escolha do formato de ponta. Fontes consultadas: iFixit, <em>Soldering Iron Maintenance</em>, <em>How to Clean and Tin a Soldering Iron Tip</em> e <em>Soldering Iron: Not Melting Solder</em>; SMT007 (iConnect007), <em>5 Habits to Make Your Soldering Iron Tips Last Longer</em>; RS DesignSpark, <em>Tips on looking after your soldering iron tips</em>; Rapid Electronics, <em>Soldering iron tips guide</em>; manual da Hakko para estação de dessoldagem; manual do MIT 6.270 (bomba dessoldadora); fóruns técnicos para malha e bomba.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Por que a ponta desgasta (a visão dos materiais)</strong> — uma ponta é feita de camadas. O núcleo de <strong>cobre</strong> conduz o calor, mas o cobre puro se dissolve rápido na solda derretida; por isso ele é revestido por uma camada de <strong>ferro</strong> (às vezes com níquel), que resiste à erosão e forma a área de trabalho, e essa área é mantida <strong>estanhada</strong>, o que protege o ferro da oxidação e ajuda a solda a molhar. Quando a camada de ferro racha ou é consumida, o cobre fica exposto à umidade, ao oxigênio e ao estanho, e a ponta falha depressa. Descrevem-se cinco modos de falha: trinca do revestimento por pressão excessiva, choque térmico, desgaste por abrasão, perda de molhamento (<em>de-wetting</em>) e corrosão. O calor acelera tudo: a oxidação cresce com a temperatura, e fluxos agressivos e produtos de limpeza em contato com a ponta quente também corroem o revestimento.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Como inspecionar a ponta</strong> — com o ferro frio, olhe a área de trabalho, de preferência com lupa. Na prática, <strong>pontos escavados (pits), furos, rachaduras, deformações ou cobre exposto</strong> são sinais de dano físico: a recomendação é simplesmente trocar a ponta. Um revestimento íntegro não mostra pits, furos nem trincas, e um pit com preto dentro já pede a troca. O revestimento perdido não se restaura.<br><br>
+<strong>O que ainda dá para recuperar</strong> — se a ponta está escurecida e a solda <strong>forma bolinhas e "empoça" em vez de se espalhar</strong>, o problema costuma ser oxidação da superfície, e não desgaste do metal. O procedimento usual é limpar, estanhar de novo e, se a solda continuar sem molhar depois de uma ou duas tentativas, usar o tinner. Se mesmo assim a área de trabalho não aceitar solda, ou se houver sinais físicos de dano, é hora de trocar. Lixa e lima nunca devem ser usadas: danificam o revestimento e causam falha precoce, e só se justificam como recurso de última hora.<br><br>
+<strong>Ponta quente que não derrete a solda</strong> — a oxidação pode formar uma barreira térmica entre a ponta e a solda. Se a ponta está limpa e estanhada e o ferro continua fraco, convém verificar o <strong>elemento aquecedor</strong>: retire a ponta, procure rachaduras ou danos e troque o elemento se for preciso; em ferros de cartucho, troque o cartucho inteiro (algumas estações até mostram um erro quando o elemento falhou).</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Como fazer a ponta durar</strong> — mantenha-a estanhada quando não estiver em uso e estanhe-a depois de cada uso. Desligue o ferro nas pausas, porque a oxidação é muito mais lenta em temperatura ambiente, e use a temperatura mínima necessária; observa-se que, se você precisa trabalhar acima de 375 °C para manter o ritmo, talvez esteja usando o ferro errado. Limpe com lã de latão (que não danifica o revestimento) ou com esponja de celulose úmida, não molhada, com água deionizada — esponja encharcada favorece a perda de molhamento e o choque térmico. Não mergulhe a ponta no fluxo e evite produtos de limpeza agressivos. Use sempre a ponta do tamanho certo, sem forçá-la contra a placa, e mantenha o suporte do ferro em bom estado, com a mola e o funil íntegros, para o ferro não cair nem bater. Uma ponta bem cuidada dura anos: se as suas acabam rápido, vale rever os hábitos antes de culpar a ponta.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Malha e bomba dessoldadora</strong> — as fontes aqui são mais frágeis (manuais e fóruns de bancada), então trate como orientação prática. A <strong>malha</strong> perde a capacidade de absorver quando oxida ou fica seca: a solda forma bolinhas sobre ela em vez de entrar na trama. Antes de descartar, confira o fluxo, o contato da ponta com a malha e o calor suficiente na junta; se nada ajudar, corte o trecho gasto ou troque o rolo. A <strong>bomba</strong> perde sucção quando o anel de vedação do êmbolo se desgasta ou quando o bico entope de solda; um teste é tapar o bico com o dedo e sentir o vácuo, e limpar o bico e o corpo ajuda antes de trocar peças. O bico das bombas costuma ser de Teflon, em que a solda não gruda, mas ele também derrete: não é indestrutível e não deve ser encostado com força no ferro. Em estações de dessoldagem a vácuo, bocal entupido, filtro cheio de solda e vazamento de ar em peças gastas estão entre as causas de a solda não ser sugada.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Decisão rápida</strong> — <strong>troque</strong> a ponta se houver cobre exposto, pits ou furos, rachaduras, deformação ou se a solda não molhar nem depois de limpar, estanhar e usar o tinner. <strong>Recupere</strong> se a ponta só está escura e suja e passa a molhar depois da limpeza. Continuar usando uma ponta gasta aumenta o risco de dano às ilhas, o tempo de contato e a chance de juntas ruins.<br><br>
+<strong>Em construção</strong> — este guia reúne informações básicas coletadas na internet e ainda será aprofundado, por exemplo com a recuperação de pontas muito oxidadas e a escolha do formato de ponta. O conteúdo é resultado de uma análise comparativa de várias fontes técnicas e de bancada, e não a cópia de uma única referência; os valores e as recomendações são o ponto final dessa análise e podem ser ajustados.</div>
                   <div class="hist-names"><span class="hist-name-tag">ponta do ferro</span><span class="hist-name-tag">revestimento de ferro</span><span class="hist-name-tag">cobre exposto</span><span class="hist-name-tag">de-wetting</span><span class="hist-name-tag">oxidação</span><span class="hist-name-tag">tinner</span><span class="hist-name-tag">elemento aquecedor</span><span class="hist-name-tag">malha</span><span class="hist-name-tag">bomba</span></div>
                 </div>
               </div>
@@ -12697,14 +12767,14 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
 
                   </div>
                   <div class="hist-detail drop-cap"><strong>Gerir um site criado por IA</strong> é assumir o papel de dono do código: entender como ele está montado, saber onde cada coisa fica, mudar só o que você quer, conferir o resultado e conseguir desfazer qualquer erro. A boa notícia é que o código gerado por IA costuma ser muito repetitivo — as mesmas peças (um card, uma aba, um guia) se repetem com conteúdos diferentes. No arquivo deste site, por exemplo, cada matéria é uma <em>view</em>, cada aba é um painel e cada guia é um item de lista com a mesma estrutura. Escrever "naturalmente, como se fosse você" significa aprender o molde dessas peças e usá-lo, em vez de inventar estrutura nova. O estudo abaixo segue a ordem do trabalho real: preparar o ambiente, ler o mapa do arquivo, editar com segurança, conferir, guardar versões e cuidar do que não pode vazar.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>1. Preparar o ambiente</strong> — no VS Code, abra a <strong>pasta</strong> do site (File › Open Folder), e não só o arquivo: assim a busca em todos os arquivos e o controle de versão passam a funcionar. Para ver a página, a forma mais simples é abrir o .html no navegador e recarregar (F5) a cada salvamento (Ctrl+S). Opcionalmente, a extensão Live Server (ritwickdey.liveserver) abre um servidor local e recarrega o navegador sozinha: depois de instalada, clique em Go Live na barra de status ou clique com o botão direito no .html e escolha Open with Live Server. Se for usar controle de versão, o VS Code usa o Git instalado no seu computador, em versão 2.0.0 ou superior, segundo a documentação.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>1. Preparar o ambiente</strong> — no VS Code, abra a <strong>pasta</strong> do site (File › Open Folder), e não só o arquivo: assim a busca em todos os arquivos e o controle de versão passam a funcionar. Para ver a página, a forma mais simples é abrir o .html no navegador e recarregar (F5) a cada salvamento (Ctrl+S). Opcionalmente, a extensão Live Server (ritwickdey.liveserver) abre um servidor local e recarrega o navegador sozinha: depois de instalada, clique em Go Live na barra de status ou clique com o botão direito no .html e escolha Open with Live Server. Se for usar controle de versão, o VS Code usa o Git instalado no seu computador, em versão 2.0.0 ou superior.</div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>2. Ler o mapa do arquivo</strong> — um site de um arquivo só costuma ter três camadas: o CSS (dentro de style), o HTML (a estrutura, em blocos) e o JavaScript (dentro de script, que muitas vezes guarda também os <em>dados</em>, como listas de itens). Para se localizar: Ctrl+F procura no arquivo aberto; Ctrl+Shift+F procura em toda a pasta; Ctrl+G vai direto a uma linha; Ctrl+Shift+O lista as funções e símbolos do arquivo; Ctrl+P abre um arquivo pelo nome; Ctrl+Shift+[ dobra um bloco, o que ajuda a enxergar a estrutura em arquivos grandes. Um bom hábito é procurar pelo <em>texto visível</em> da parte que você quer mudar (o título de uma aba, por exemplo) e, a partir dele, achar o bloco de HTML ou a linha de dados correspondente.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>3. Editar copiando um molde</strong> — a forma mais segura de acrescentar conteúdo é copiar um bloco que já funciona (um card, um item de guia), colar logo abaixo e trocar só os textos. Não renomeie classes (class) nem ids: o CSS e o JavaScript do site dependem deles, e cada id precisa ser único. Quando o conteúdo mora em listas dentro do JavaScript, o risco muda: uma vírgula a mais ou a menos, ou um apóstrofo dentro de um texto entre aspas simples, pode derrubar o script inteiro. No HTML, os erros típicos listados pela MDN são elementos sem fechamento, elementos aninhados na ordem errada e atributos com aspas sem fechar. Nos textos, escreva &amp;amp; no lugar de &amp; e &amp;lt; no lugar de &lt;. Faça uma mudança de cada vez e salve antes de seguir. Cuidado com o Replace All e com a substituição em toda a pasta (Ctrl+Shift+H) em arquivos grandes: um termo comum pode ser trocado em lugares que você não viu.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>4. Conferir cada mudança</strong> — salve, recarregue e abra as ferramentas do desenvolvedor (F12). A aba <strong>Console</strong> mostra os erros de JavaScript em vermelho, com arquivo e linha; o <strong>inspetor de elementos</strong> mostra o HTML que o navegador realmente montou (MDN). Esse detalhe importa: o navegador perdoa HTML malformado e o conserta em silêncio, às vezes mudando o lugar das coisas, então uma página que parece normal pode estar com a estrutura quebrada. Para o HTML, use o validador do W3C (Nu HTML Checker), que aceita um arquivo enviado, um endereço público ou o código colado e aponta, entre outros erros, aninhamentos inválidos e ids duplicados. No VS Code, o painel Problems (Ctrl+Shift+M) e o atalho F8 mostram e percorrem os avisos e erros que o editor detecta.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>3. Editar copiando um molde</strong> — a forma mais segura de acrescentar conteúdo é copiar um bloco que já funciona (um card, um item de guia), colar logo abaixo e trocar só os textos. Não renomeie classes (class) nem ids: o CSS e o JavaScript do site dependem deles, e cada id precisa ser único. Quando o conteúdo mora em listas dentro do JavaScript, o risco muda: uma vírgula a mais ou a menos, ou um apóstrofo dentro de um texto entre aspas simples, pode derrubar o script inteiro. No HTML, os erros típicos são elementos sem fechamento, elementos aninhados na ordem errada e atributos com aspas sem fechar. Nos textos, escreva &amp;amp; no lugar de &amp; e &amp;lt; no lugar de &lt;. Faça uma mudança de cada vez e salve antes de seguir. Cuidado com o Replace All e com a substituição em toda a pasta (Ctrl+Shift+H) em arquivos grandes: um termo comum pode ser trocado em lugares que você não viu.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>4. Conferir cada mudança</strong> — salve, recarregue e abra as ferramentas do desenvolvedor (F12). A aba <strong>Console</strong> mostra os erros de JavaScript em vermelho, com arquivo e linha; o <strong>inspetor de elementos</strong> mostra o HTML que o navegador realmente montou. Esse detalhe importa: o navegador perdoa HTML malformado e o conserta em silêncio, às vezes mudando o lugar das coisas, então uma página que parece normal pode estar com a estrutura quebrada. Para o HTML, use o validador do W3C (Nu HTML Checker), que aceita um arquivo enviado, um endereço público ou o código colado e aponta, entre outros erros, aninhamentos inválidos e ids duplicados. No VS Code, o painel Problems (Ctrl+Shift+M) e o atalho F8 mostram e percorrem os avisos e erros que o editor detecta.</div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>5. Desfazer e guardar versões</strong> — antes de uma mudança grande, copie o arquivo (por exemplo, index-backup-data.html). O Ctrl+Z desfaz a edição atual; para voltar mais longe, a visão Timeline, no Explorer, lista os salvamentos locais e os commits do arquivo aberto e permite comparar versões. Com o Git, o ciclo é: abrir a visão Source Control (Ctrl+Shift+G), clicar no arquivo alterado para ver, lado a lado, o antes e o depois no editor de diferenças, confirmar que só mudou o que você queria e fazer o commit com uma mensagem curta (por exemplo, Adiciona estudo sobre gestão do site). Um commit grava um instantâneo no histórico local e não envia nada a um servidor. Se errar o último commit, existe o comando Git: Undo Last Commit, na paleta de comandos (Ctrl+Shift+P).</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>6. Cuidados com o que a IA deixou no código</strong> — tudo o que está no HTML e no JavaScript do navegador é visível para qualquer visitante, pelo código-fonte da página ou pela aba Rede das ferramentas do desenvolvedor. Por isso senhas e <strong>chaves de API secretas</strong> não devem ficar nesses arquivos: guias de segurança, como o da Replit, orientam manter segredos fora do código do navegador e do armazenamento local, com as credenciais de API no servidor. Chaves somente de leitura, feitas para uso no navegador, são uma exceção, e a documentação do serviço costuma dizer quando é o caso. Faça uma busca em toda a pasta (Ctrl+Shift+F) por palavras como key, token, secret e password e confira o que encontrar.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>6. Cuidados com o que a IA deixou no código</strong> — tudo o que está no HTML e no JavaScript do navegador é visível para qualquer visitante, pelo código-fonte da página ou pela aba Rede das ferramentas do desenvolvedor. Por isso senhas e <strong>chaves de API secretas</strong> não devem ficar nesses arquivos: a prática recomendada de segurança é manter segredos fora do código do navegador e do armazenamento local, com as credenciais de API no servidor. Chaves somente de leitura, feitas para uso no navegador, são uma exceção, e a documentação do serviço costuma dizer quando é o caso. Faça uma busca em toda a pasta (Ctrl+Shift+F) por palavras como key, token, secret e password e confira o que encontrar.</div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>7. Pedir ajuda à IA sem bagunçar</strong> — o método é o mesmo da edição manual: cole o <em>trecho exato</em> (e não o arquivo inteiro), diga o que não pode mudar (ids, classes, estrutura), peça a menor alteração possível e confira o resultado no editor de diferenças antes de aceitar. Depois teste no navegador e olhe o Console. Se a mudança tocar muitas linhas fora do que você pediu, desconfie. Esta etapa é uma boa prática de trabalho, e não uma regra tirada de uma fonte externa: é o que o Tópico VI de Fundamentos descreve como projetar mudanças.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este estudo reúne informações básicas e ainda será aprofundado, por exemplo com publicação e hospedagem, backup em nuvem com GitHub, divisão de um arquivo muito grande em vários e desempenho. Fontes consultadas: documentação do VS Code (Source Control e histórico/Timeline); MDN, <em>Debugging HTML</em>; W3C Nu HTML Checker; repositório da extensão Live Server; Replit Docs, lista de segurança; DEV Community, <em>How to use API keys in client-side JavaScript</em>; listas de atalhos do VS Code. Os atalhos citados são os de Windows e Linux; no Mac, mudam.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este estudo reúne informações básicas e ainda será aprofundado, por exemplo com publicação e hospedagem, backup em nuvem com GitHub, divisão de um arquivo muito grande em vários e desempenho. O conteúdo é resultado de uma análise comparativa de várias fontes técnicas e boas práticas de desenvolvimento, e não a cópia de uma única referência; as recomendações são o ponto final dessa análise e podem ser ajustadas. Os atalhos citados são os de Windows e Linux; no Mac, mudam.</div>
                   <div class="hist-names"><span class="hist-name-tag">VS Code</span><span class="hist-name-tag">abrir a pasta</span><span class="hist-name-tag">Live Server</span><span class="hist-name-tag">Console</span><span class="hist-name-tag">inspetor de elementos</span><span class="hist-name-tag">validador W3C</span><span class="hist-name-tag">Git</span><span class="hist-name-tag">Timeline</span><span class="hist-name-tag">chaves de API</span></div>
                 </div>
               </div>
@@ -12725,7 +12795,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
               <div class="ref-spine">MDN</div>
               <div class="ref-info">
                 <div class="ref-title">MDN Web Docs</div>
-                <div class="ref-author">Mozilla · developer.mozilla.org</div>
+                <div class="ref-author">Mozilla</div>
                 <div class="ref-note">Documentação de referência para HTML, CSS e JavaScript, com guias, exemplos e tabelas de compatibilidade entre navegadores.</div>
               </div>
             </div>
@@ -12734,7 +12804,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
               <div class="ref-spine">WHATWG</div>
               <div class="ref-info">
                 <div class="ref-title">HTML Living Standard</div>
-                <div class="ref-author">WHATWG · html.spec.whatwg.org</div>
+                <div class="ref-author">WHATWG</div>
                 <div class="ref-note">A especificação oficial do HTML, mantida de forma contínua — a fonte final para dúvidas sobre elementos e atributos.</div>
               </div>
             </div>
@@ -12743,7 +12813,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
               <div class="ref-spine">W3C</div>
               <div class="ref-info">
                 <div class="ref-title">Especificações CSS</div>
-                <div class="ref-author">W3C · w3.org/Style/CSS</div>
+                <div class="ref-author">W3C</div>
                 <div class="ref-note">Os padrões do CSS, organizados em módulos (seletores, flexbox, grid, cores e outros).</div>
               </div>
             </div>
@@ -26589,7 +26659,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
           <div class="mat-hero-stats">
             <div class="mat-stat"><span class="mat-stat-num">118</span><span class="mat-stat-label">Tópicos</span></div>
             <div class="mat-stat"><span class="mat-stat-num">~640</span><span class="mat-stat-label">Anos (1200–1841)</span></div>
-            <div class="mat-stat"><span class="mat-stat-num">20</span><span class="mat-stat-label">Fontes consultadas</span></div>
+            <div class="mat-stat"><span class="mat-stat-num">20</span><span class="mat-stat-label">Fontes analisadas</span></div>
             <div class="mat-stat"><span class="mat-stat-num" id="jus-notes-count-hero">0</span><span class="mat-stat-label">Anotações</span></div>
           </div>
         </div>
@@ -27293,9 +27363,9 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
               <div class="hist-event">O Garfo do Herege — o Sexto Caso desta Família, e o mais Vazio de Fonte Real que Já Encontramos</div>
               <div class="origin-note" style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; padding:8px 14px; margin-bottom:12px; font-size:0.95em;"><b>⚠ Resultado da pesquisa:</b> nenhuma fonte acadêmica localizada. Nenhum historiador nomeado. Nenhum espécime de museu com data e proveniência criticamente analisada. Nem a Wikipedia tem artigo dedicado ao objeto — o próprio Wikidata registra "0 referências" para o item.</div>
               <div class="hist-detail drop-cap">O "Garfo do Herege" (<em>Ketzergabel</em>) é descrito, em praticamente toda fonte de divulgação popular disponível hoje, como um pequeno dispositivo de metal bifurcado — uma ponta sob o queixo, outra contra o esterno —, preso ao pescoço por uma tira de couro, impedindo a vítima de baixar a cabeça ou adormecer sem se perfurar. A alegação mais repetida é ainda mais específica e, por isso, mais suspeita: que os exemplares traziam a palavra latina <em>abiuro</em> ("eu recanto") gravada — nível de detalhe teatral que, segundo o padrão já estabelecido neste ramo para Iron Maiden, Berço de Judas e Pera da Angústia, costuma sinalizar invenção, não achado documental.<br><br>
-              A busca exaustiva por qualquer fonte de qualidade — trabalho acadêmico revisado por pares, historiador nomeado com especialização reconhecida, catálogo de museu com metodologia de datação, registro processual medieval ou early modern — não encontrou nada. Toda a "informação" disponível vem do mesmo ecossistema de sites de listicle e turismo macabro (a maioria delas, aliás, os mesmos domínios já identificados como não confiáveis neste ramo: <em>medievalchronicles.com</em> reaparece pela quarta ou quinta vez nesta investigação) que reciclam o mesmo texto entre si, sem citação primária alguma, muitas vezes reaproveitando quase palavra por palavra o texto de um site para o outro. É o padrão mais extremo de vazio documental que este ramo já registrou — pior até que o Berço de Judas, que ao menos tinha uma atribuição (contestável) a um jurista real do séc. XVI. Aqui não há nem isso: nenhuma origem, nenhum praticante nomeado, nenhuma data de "invenção" sequer proposta pelas próprias fontes fracas.<br><br>
+              A busca exaustiva por qualquer fonte de qualidade — trabalho acadêmico revisado por pares, historiador nomeado com especialização reconhecida, catálogo de museu com metodologia de datação, registro processual medieval ou early modern — não encontrou nada. Toda a "informação" disponível vem do mesmo ecossistema de sites de listicle e turismo macabro (a maioria delas, aliás, os mesmos domínios já identificados como não confiáveis neste ramo: um mesmo site de crônicas medievais reaparece pela quarta ou quinta vez nesta investigação) que reciclam o mesmo texto entre si, sem citação primária alguma, muitas vezes reaproveitando quase palavra por palavra o texto de um site para o outro. É o padrão mais extremo de vazio documental que este ramo já registrou — pior até que o Berço de Judas, que ao menos tinha uma atribuição (contestável) a um jurista real do séc. XVI. Aqui não há nem isso: nenhuma origem, nenhum praticante nomeado, nenhuma data de "invenção" sequer proposta pelas próprias fontes fracas.<br><br>
               Isso não significa necessariamente que o objeto nunca existiu de forma alguma — significa que, com o rigor que este ramo exige, não há base para afirmar nada sobre ele além do fato de que a internet o repete incessantemente sem nunca checar a fonte. É o exemplo mais limpo, entre os seis casos já reunidos nesta família (Donzela de Ferro, Berço de Judas, Pera da Angústia, cinto de castidade, "estripador de seios" e agora o Garfo do Herege), de como um objeto pode se tornar "conhecimento comum" — citado, ilustrado, vendido como réplica em lojas de museu — através da pura repetição, sem que ninguém, em nenhum momento da cadeia, tenha verificado a fonte original. Para quem escreve ficção, a lição volta a ser a mesma de sempre neste ramo: usar o objeto conscientemente, como artefato da imaginação moderna sobre a Inquisição, não como fato histórico verificável.</div>
-              <div class="hist-names"><span class="hist-name-tag">⚠ Zero fontes acadêmicas encontradas</span><span class="hist-name-tag">⚠ Wikidata registra "0 referências"</span><span class="hist-name-tag">Alegação "abiuro" — detalhe teatral suspeito</span><span class="hist-name-tag">Sexto caso da família dark medievalism</span><span class="hist-name-tag">medievalchronicles.com — fonte já desqualificada</span><span class="hist-name-tag">Caso mais vazio de evidência já registrado neste ramo</span></div>
+              <div class="hist-names"><span class="hist-name-tag">⚠ Zero fontes acadêmicas encontradas</span><span class="hist-name-tag">⚠ Wikidata registra "0 referências"</span><span class="hist-name-tag">Alegação "abiuro" — detalhe teatral suspeito</span><span class="hist-name-tag">Sexto caso da família dark medievalism</span><span class="hist-name-tag">site de crônicas medievais — fonte já desqualificada</span><span class="hist-name-tag">Caso mais vazio de evidência já registrado neste ramo</span></div>
             </div>
 <div class="hist-entry">
               <div class="hist-period">💧 Tópico LXX</div>
@@ -27506,7 +27576,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
           <div class="hist-entry">
             <div class="hist-period">⛪ Tópico I</div>
             <div class="hist-event">Os Quatro Cavaleiros e o Arcebispo — o Assassinato de Thomas Becket (1170) que Reescreveu a Fronteira Entre Igreja e Coroa</div>
-            <div class="origin-note" style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; padding:8px 14px; margin-bottom:12px; font-size:0.95em;"><b>🔨 Origem/autoria:</b> assassinato de Thomas Becket, arcebispo de Canterbury, em 29 de dezembro de 1170. Testemunha ocular: Edward Grim. Baseado em fontes cruzadas (Wikipedia, British Museum, Stony Brook Undergraduate History Journal).</div>
+            <div class="origin-note" style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; padding:8px 14px; margin-bottom:12px; font-size:0.95em;"><b>🔨 Origem/autoria:</b> assassinato de Thomas Becket, arcebispo de Canterbury, em 29 de dezembro de 1170. Testemunha ocular: Edward Grim. Baseado em análise cruzada de várias fontes.</div>
             <div class="hist-detail drop-cap">A disputa entre Henrique II e seu ex-chanceler tinha um núcleo jurídico preciso: quem julgava clérigos acusados de crimes — a Coroa ou a Igreja? Henrique queria que "clérigos criminosos" respondessem perante tribunais seculares, sujeitos às penas comuns (mutilação, morte); Becket insistia que apenas cortes eclesiásticas tinham jurisdição sobre homens de ordens sagradas, mesmo que a pena resultante fosse apenas a perda do cargo — o mesmo princípio de imunidade clerical que este ramo já documentou gerando processos décadas depois (Tópico LXXVIII, caso de Amiens 1283). Após anos de exílio, excomunhões cruzadas e uma reconciliação frágil, Becket voltou à Inglaterra em dezembro de 1170 e imediatamente excomungou três bispos que haviam participado da coroação do herdeiro do trono sem sua autorização como arcebispo de Canterbury — um gesto calculado para reafirmar a supremacia de Canterbury.<br><br>
             A reação de Henrique II, num acesso de fúria em sua corte na Normandia, foi interpretada literalmente por quatro cavaleiros — Reginald FitzUrse, Hugh de Morville, William de Tracy e Richard le Bret — que atravessaram o mar até Canterbury. Na tarde de 29 de dezembro, encontraram Becket na catedral, durante as vésperas; ao se recusar a retirar as excomunhões, foi golpeado repetidamente com espadas até a morte, diante do altar. A testemunha ocular Edward Grim, que sofreu um ferimento tentando protegê-lo, registrou o episódio em detalhe e se tornaria a fonte biográfica mais citada sobre o arcebispo. O choque em toda a Cristandade foi imediato: o papa se recusou a receber qualquer inglês por semanas, e Henrique temeu uma revolta generalizada de seus próprios vassalos.<br><br>
             As consequências jurídicas e políticas foram desproporcionais ao ato: os quatro cavaleiros nunca foram presos nem tiveram suas terras confiscadas pelo próprio rei — mas o papa Alexandre III os excomungou, e eles próprios buscaram absolvição em Roma, recebendo como penitência a ordem de servir como cavaleiros na Terra Santa por catorze anos. Henrique II, por sua vez, fez penitência pública em Canterbury em 1174 — caminhando descalço pela cidade e permitindo que monges o açoitassem simbolicamente diante do túmulo do arcebispo. Becket foi canonizado já em 1173, apenas três anos após a morte, e seu santuário se tornaria um dos destinos de peregrinação mais importantes da Europa (o pano de fundo real dos <em>Contos da Cantuária</em> de Chaucer) até Henrique VIII ordenar sua destruição em 1538, mais de três séculos depois, ao declarar o próprio santo como traidor.</div>
@@ -27526,7 +27596,7 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
           <div class="hist-entry">
             <div class="hist-period">⚔️ Tópico III</div>
             <div class="hist-event">Gilles de Rais (1440) — do Marechal Companheiro de Joana d'Arc ao Duplo Julgamento Secular-Eclesiástico Mais Documentado do Fim da Idade Média</div>
-            <div class="origin-note" style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; padding:8px 14px; margin-bottom:12px; font-size:0.95em;"><b>🔨 Origem/autoria:</b> julgamento duplo (secular e eclesiástico) de Gilles de Rais, Nantes, outubro de 1440. Transcrições originais dos processos preservadas e traduzidas — uma das fontes judiciais mais completas de todo o período medieval. Baseado em fontes cruzadas (Britannica, Wikipedia, Famous Trials/UMKC).</div>
+            <div class="origin-note" style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; padding:8px 14px; margin-bottom:12px; font-size:0.95em;"><b>🔨 Origem/autoria:</b> julgamento duplo (secular e eclesiástico) de Gilles de Rais, Nantes, outubro de 1440. Transcrições originais dos processos preservadas e traduzidas — uma das fontes judiciais mais completas de todo o período medieval. Baseado em análise cruzada de várias fontes.</div>
             <div class="hist-detail drop-cap">Gilles de Rais foi companheiro de armas de Joana d'Arc nas campanhas de 1429 — presente no cerco de Orléans e na sagração de Carlos VII em Reims, que o elevou a Marechal da França. Depois de se retirar da vida militar em 1435, dilapidou parte de sua fortuna em espetáculos teatrais extravagantes e experimentos alquímicos, e foi colocado sob interdição financeira pelo próprio rei. Sua queda começou por um motivo aparentemente menor: em maio de 1440, durante uma disputa territorial com o tesoureiro do Duque da Bretanha, invadiu uma igreja e sequestrou um clérigo — uma violação de imunidade eclesiástica que desencadeou uma investigação do bispo de Nantes. Foi essa investigação, não qualquer denúncia direta, que trouxe à luz anos de rumores sobre desaparecimentos de crianças na vizinhança de seus castelos.<br><br>
             O processo que se seguiu é um caso raro de dupla jurisdição simultânea, exatamente o tipo de sobreposição institucional que este ramo já documentou em outros contextos (Tópicos LXXVII, LXXVIII): um tribunal eclesiástico, assistido pela Inquisição, o julgou por heresia, invocação demoníaca e sodomia; um tribunal secular da corte ducal da Bretanha o julgou simultaneamente pelo sequestro do clérigo e pelo assassinato de numerosas crianças — os registros do processo citam a cifra de mais de cento e quarenta vítimas ao longo de quase uma década, com depoimentos de dezenas de pais que testemunharam o desaparecimento de seus filhos após contato com os empregados do acusado. Diante da preparação para submetê-lo à tortura como último recurso, Gilles de Rais confessou integralmente em 21 de outubro de 1440, com o tribunal cancelando formalmente o plano de tortura assim que a confissão foi obtida — um raro registro documental do próprio mecanismo de <em>territio</em> (ameaça do instrumento antes do uso) já catalogado no Tópico LXXV funcionando exatamente como a teoria jurídica previa, seis séculos antes.<br><br>
             A confissão pública, feita "com grande contrição de coração e grande efusão de lágrimas" segundo o próprio registro notarial do processo, incluiu um apelo direto aos pais presentes para que vigiassem seus filhos contra a ociosidade e o excesso — um detalhe que os próprios cronistas da época destacaram como exemplo de penitência cristã genuína, gerando controvérsia entre historiadores até hoje sobre até que ponto a "confissão modelo" foi moldada pelas próprias autoridades eclesiásticas presentes. Excomungado pelo tribunal eclesiástico e condenado à morte pelo secular, Gilles de Rais foi enforcado e depois queimado numa fogueira erguida num campo às margens do Loire, em 26 de outubro de 1440, junto a dois de seus criados — mas apenas depois de pedir perdão publicamente à multidão reunida, que segundo relatos incluía tanto curiosos quanto famílias das próprias vítimas. Historiadores modernos consideram infundadas as teorias de que ele teria sido "incriminado" por interesses fundiários da Igreja ou do Duque, já que o testemunho de seus próprios cúmplices e das famílias das vítimas, coletado independentemente pelos dois tribunais, converge de forma consistente.</div>
@@ -39627,6 +39697,15 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
         if (btn) btn.classList.add('active');
       }
 
+      function switchMetSubTab(subId, btn) {
+        const raiz = document.getElementById('panel-met-fundamentos');
+        raiz.querySelectorAll('.met-subpanel').forEach(p => p.classList.remove('active'));
+        const alvo = document.getElementById(subId);
+        if (alvo) alvo.classList.add('active');
+        raiz.querySelectorAll('.met-subtab-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+      }
+
       function metLeverUpdate() {
         const c0El = document.getElementById('met-lever-c0');
         const csEl = document.getElementById('met-lever-cs');
@@ -40101,6 +40180,60 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
         });
       }
 
+      // ── WALLPAPER por página e por tipo ──
+      // ordem: Images/WALLPAPERS/<página>.webp → Images/WALLPAPERS/tipo-<tipo>.webp → Images/Wallpaper.webp
+      // (só usa o que existir; se nenhum existir, nada muda no site)
+      const WALLPAPER_CONFIG = { pasta: 'Images/WALLPAPERS/', extensao: '.webp', geral: 'Images/Wallpaper.webp' };
+      const _wpExiste = {};
+      let _wpToken = 0;
+
+      function tipoDaPagina(pageId) {
+        let id = pageId, guarda = 0;
+        while (SUBPAGES[id] && SUBPAGES[id].parent && guarda++ < 10) id = SUBPAGES[id].parent;
+        for (let i = 0; i < DOMAINS.length; i++) {
+          if (DOMAINS[i].subjects.some(function (s) { return (s.page || s.id) === id; })) return DOMAINS[i].id;
+        }
+        return null;
+      }
+
+      function wallpaperExiste(url, cb) {
+        if (url in _wpExiste) { cb(_wpExiste[url]); return; }
+        carregarImagem(url, function () { _wpExiste[url] = true; cb(true); }, function () { _wpExiste[url] = false; cb(false); });
+      }
+
+      function aplicarWallpaper() {
+        if (!IMG_CONFIG.ativo) return;
+        const pagina = document.body.getAttribute('data-theme') || 'home';
+        const tipo = pagina === 'home' ? null : tipoDaPagina(pagina);
+        const lista = [WALLPAPER_CONFIG.pasta + pagina + WALLPAPER_CONFIG.extensao];
+        if (tipo) lista.push(WALLPAPER_CONFIG.pasta + 'tipo-' + tipo + WALLPAPER_CONFIG.extensao);
+        lista.push(WALLPAPER_CONFIG.geral);
+        document.documentElement.setAttribute('data-wallpaper-caminhos', lista.join('  →  '));
+        const meu = ++_wpToken;
+        function definir(url) {
+          document.documentElement.style.setProperty('--img-wallpaper', url ? "url('" + url + "')" : 'none');
+          document.body.classList.toggle('com-wallpaper', !!url);
+        }
+        (function tentar(i) {
+          if (meu !== _wpToken) return;
+          if (i >= lista.length) { definir(null); return; }
+          wallpaperExiste(lista[i], function (ok) {
+            if (meu !== _wpToken) return;
+            if (ok) definir(lista[i]); else tentar(i + 1);
+          });
+        })(0);
+      }
+
+      function atualizarModoWallpaper() {
+        const ligado = /wallpaper/.test(location.hash);
+        document.documentElement.classList.toggle('debug-wallpaper', ligado);
+        document.body.classList.toggle('debug-wallpaper', ligado);
+      }
+      window.addEventListener('hashchange', atualizarModoWallpaper);
+      new MutationObserver(aplicarWallpaper).observe(document.body, { attributes: true, attributeFilter: ['data-theme'] });
+      aplicarWallpaper();
+      atualizarModoWallpaper();
+
       // modo identificação (#icones): mostra o caminho esperado em cada ponto
       function atualizarModoNomes() {
         const ligado = /icones|imagens|nomes/.test(location.hash);
@@ -40126,6 +40259,234 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
           requestAnimationFrame(function () { agendado = false; aplicarIcones(home); atualizarModoNomes(); });
         }).observe(home, { childList: true, subtree: true });
         atualizarModoNomes();
+      })();
+    </script>
+
+    <script id="scientia-glossario">
+      /* ═══════════════════════════════════════════════════════════════════
+         GLOSSÁRIO TÉCNICO
+         Toda página ganha a aba "Glossário Técnico" (no fim da barra de abas).
+         COMO ADICIONAR UM TERMO: no objeto GLOSSARIO abaixo, procure o id da página
+         (o mesmo de view-<id>, ex.: metalurgia, dev-web, eng-software) e acrescente
+             ["Termo", "Definição"],
+         Se a página ainda não está na lista, crie:  id-da-pagina: [ ["Termo", "Definição"] ],
+         A ordem não importa: o site ordena de A a Z sozinho. Termos que começam
+         com número entram no filtro 0-9. Evite aspas duplas dentro do texto.
+         Página sem termos mostra "Em preparação".
+         ═══════════════════════════════════════════════════════════════════ */
+      const GLOSSARIO = {
+        metalurgia: [
+        ["Alotropia", "Capacidade de um elemento existir em mais de uma estrutura cristalina conforme a temperatura e a pressão. O ferro é CCC (ferrita α) até 912 °C, CFC (austenita γ) de 912 a 1394 °C e CCC (ferrita δ) até a fusão, a 1538 °C."],
+        ["Alto-forno", "Forno vertical que produz ferro-gusa líquido a partir de minério de ferro, coque (fonte de carbono) e calcário, que atua como fundente."],
+        ["Anisotropia", "Dependência das propriedades de um material em relação à direção em que são medidas; comum em cristais e em metais laminados."],
+        ["Aço", "Liga de ferro e carbono com até cerca de 2,14% de carbono em massa, em geral com outros elementos de liga."],
+        ["Aço inoxidável", "Aço com cerca de 10,5% ou mais de cromo, que forma na superfície uma película fina de óxido que protege contra a corrosão."],
+        ["Austenita", "Fase γ do ferro, de estrutura CFC, que dissolve bem o carbono (até cerca de 2,14%). Nos aços comuns é estável acima de 727 °C e não é magnética."],
+        ["Austenitização", "Aquecimento do aço até a faixa em que a estrutura vira austenita; é a etapa inicial da têmpera, da normalização e do recozimento."],
+        ["Bainita", "Microestrutura de ferrita e cementita muito finas, formada por transformação isotérmica em temperaturas entre as da perlita e as da martensita."],
+        ["Brasagem", "União de peças por um metal de adição que funde acima de 450 °C, mas abaixo da fusão do metal-base, que não chega a fundir."],
+        ["Bronze", "Liga de cobre e estanho (podendo ter outros elementos), mais dura e mais resistente à corrosão que o cobre puro."],
+        ["CCC (cúbica de corpo centrado)", "Estrutura cristalina com um átomo em cada vértice do cubo e um no centro. Exemplos: ferro α, cromo e tungstênio."],
+        ["CFC (cúbica de faces centradas)", "Estrutura cristalina com um átomo em cada vértice do cubo e um no centro de cada face. Exemplos: alumínio, cobre, níquel, ouro e ferro γ."],
+        ["Cementita", "Composto Fe₃C de ferro e carbono (cerca de 6,7% de carbono), muito duro e frágil; está presente na perlita e na bainita."],
+        ["Contorno de grão", "Interface entre dois grãos de orientações cristalinas diferentes. Atrapalha o movimento das discordâncias e, por isso, aumenta a resistência."],
+        ["Corrosão", "Deterioração de um metal por reação química ou eletroquímica com o ambiente."],
+        ["Dendrita", "Cristal ramificado, em forma de árvore, que se forma durante a solidificação de metais."],
+        ["Deformação elástica", "Deformação que desaparece quando a carga é removida: o material volta à forma original."],
+        ["Deformação plástica", "Deformação permanente, que fica depois de a carga ser retirada; ocorre pelo movimento de discordâncias."],
+        ["Diagrama de fases", "Gráfico que mostra quais fases existem em equilíbrio em cada combinação de temperatura e composição de uma liga."],
+        ["Difusão", "Movimento de átomos dentro do sólido, por vacâncias ou por interstícios; acelera muito com o aumento da temperatura."],
+        ["Discordância", "Defeito linear na rede cristalina. O movimento das discordâncias é o principal mecanismo da deformação plástica dos metais."],
+        ["Ductilidade", "Capacidade de se deformar plasticamente antes de romper, medida pelo alongamento ou pela redução de área."],
+        ["Dureza", "Resistência à penetração ou ao risco; medida em escalas como Brinell, Rockwell e Vickers."],
+        ["Encruamento", "Aumento da dureza e da resistência causado pela deformação plástica a frio, com perda de ductilidade."],
+        ["Endurecimento por precipitação", "Aumento de resistência pela formação de partículas muito finas de uma segunda fase, que bloqueiam o movimento das discordâncias. Usado em ligas tratáveis termicamente, como as de alumínio."],
+        ["Escória", "Resíduo não metálico que se forma nos processos de fusão e refino e reúne impurezas do minério e dos fundentes."],
+        ["Estrutura cristalina", "Arranjo ordenado e repetitivo dos átomos de um sólido no espaço."],
+        ["Eutético", "Ponto do diagrama em que um líquido se transforma em duas fases sólidas ao mesmo tempo, a uma única temperatura (a mais baixa de fusão do sistema). No sistema estanho-chumbo, ocorre a 183 °C."],
+        ["Eutetoide", "Transformação em que uma fase sólida dá origem a duas outras. No sistema ferro-carbono, a austenita vira ferrita e cementita (perlita) a 727 °C, com 0,76% de carbono."],
+        ["Fadiga", "Falha de um material sob carregamento repetido (cíclico), em tensões abaixo do limite de escoamento."],
+        ["Fase", "Porção do material com composição e estrutura uniformes, separada das demais por uma interface."],
+        ["Ferrita", "Fase α do ferro, de estrutura CCC, que dissolve pouquíssimo carbono (no máximo cerca de 0,022%). É macia, dúctil e magnética."],
+        ["Ferro fundido", "Liga de ferro e carbono com mais de cerca de 2,14% de carbono (em geral de 3% a 4,5%) e silício; funde bem, mas tem baixa ductilidade."],
+        ["Ferro-gusa", "Produto do alto-forno, com cerca de 4% de carbono e impurezas; é a matéria-prima do aço e do ferro fundido."],
+        ["Fluência", "Deformação lenta e contínua sob tensão constante, em temperaturas elevadas."],
+        ["Fluxo (de solda)", "Substância que remove óxidos da superfície e favorece o molhamento da solda no metal-base durante a soldagem branda ou a brasagem."],
+        ["Forjamento", "Conformação por compressão do metal, com martelo ou prensa, para dar forma e refinar a estrutura."],
+        ["Fratura dúctil", "Ruptura com deformação plástica apreciável antes da separação das partes."],
+        ["Fratura frágil", "Ruptura com pouca ou nenhuma deformação plástica, de propagação rápida."],
+        ["Fundição", "Processo de vazar o metal líquido em um molde, onde ele solidifica na forma da peça."],
+        ["Grão", "Cada cristal individual de um metal policristalino."],
+        ["HC (hexagonal compacta)", "Estrutura cristalina de empacotamento denso e simetria hexagonal. Exemplos: magnésio, zinco e titânio α."],
+        ["Inclusão", "Partícula não metálica (como óxidos e sulfetos) retida dentro do metal."],
+        ["Intermetálico", "Composto entre metais, de composição e estrutura cristalina definidas, em geral duro e frágil. Exemplo: Cu₆Sn₅, que se forma entre a solda de estanho e o cobre."],
+        ["Intersticial", "Posição entre os átomos da rede cristalina, ocupada por átomos pequenos como carbono, nitrogênio e hidrogênio; também nomeia a solução sólida formada assim."],
+        ["Laminação", "Conformação em que o metal passa entre cilindros que reduzem sua espessura."],
+        ["Latão", "Liga de cobre e zinco."],
+        ["Liga", "Material metálico formado por dois ou mais elementos, sendo pelo menos um deles um metal."],
+        ["Limite de escoamento", "Tensão em que o material começa a se deformar plasticamente. Quando não há um patamar nítido, usa-se o valor correspondente a 0,2% de deformação."],
+        ["Limite de resistência à tração (LRT)", "Tensão máxima de engenharia atingida no ensaio de tração."],
+        ["Liquidus", "Linha do diagrama de fases acima da qual a liga está totalmente líquida."],
+        ["Martensita", "Fase dura e frágil, de estrutura tetragonal, formada pelo resfriamento rápido da austenita (têmpera), sem difusão, com o carbono preso em solução supersaturada."],
+        ["Metalurgia", "Ciência e tecnologia dos metais. Divide-se em extrativa (do minério ao metal), física (estrutura e propriedades) e de transformação (conformação e união)."],
+        ["Microestrutura", "Arranjo das fases e dos grãos de um material, observado ao microscópio."],
+        ["Módulo de elasticidade (módulo de Young)", "Razão entre a tensão e a deformação na região elástica; mede a rigidez do material."],
+        ["Molhamento", "Espalhamento do metal de adição líquido sobre a superfície do metal-base, formando contato íntimo; depende de superfície limpa e de fluxo."],
+        ["Normalização", "Aquecimento do aço acima da faixa de austenitização, seguido de resfriamento ao ar, para refinar o grão e uniformizar a estrutura."],
+        ["Nucleação", "Formação dos primeiros núcleos estáveis de uma nova fase, etapa que antecede o crescimento, por exemplo na solidificação."],
+        ["Oxidação", "Reação do metal com o oxigênio, formando óxido na superfície; é o que o fluxo ajuda a remover antes da solda."],
+        ["Passivação", "Formação de uma película fina e aderente de óxido que protege o metal contra a corrosão, como no aço inoxidável."],
+        ["Perlita", "Microconstituinte de lâminas alternadas de ferrita e cementita, formado na transformação eutetoide do aço."],
+        ["Plasticidade", "Capacidade de sofrer deformação permanente sem romper."],
+        ["Precipitado", "Partícula de uma segunda fase que se forma dentro de uma fase sólida."],
+        ["Propriedades mecânicas", "Respostas do material a esforços: resistência, dureza, ductilidade, tenacidade e rigidez."],
+        ["Recozimento", "Aquecimento seguido de resfriamento lento, para amolecer o metal, aliviar tensões e uniformizar a estrutura."],
+        ["Recristalização", "Formação de novos grãos livres de deformação em um metal encruado quando ele é aquecido; devolve a ductilidade e reduz a dureza."],
+        ["Redução", "Na metalurgia extrativa, retirada do oxigênio do óxido do minério para obter o metal, por exemplo com carbono no alto-forno."],
+        ["Refino", "Etapa de eliminar impurezas do metal obtido na redução e ajustar sua composição."],
+        ["Regra da alavanca", "Método para calcular as frações de cada fase em uma região bifásica de um diagrama de fases."],
+        ["Resiliência", "Capacidade de absorver energia elástica e devolvê-la ao descarregar."],
+        ["Revenimento", "Aquecimento da martensita abaixo da temperatura eutetoide para reduzir a fragilidade e as tensões da têmpera, com alguma perda de dureza."],
+        ["Segregação", "Distribuição desigual de elementos de liga ou de impurezas, por exemplo durante a solidificação."],
+        ["Sinterização", "Consolidação de pós metálicos por aquecimento abaixo da temperatura de fusão, na metalurgia do pó."],
+        ["Solda branda", "União por um metal de adição que funde abaixo de 450 °C, sem fundir o metal-base; é a solda usada em eletrônica."],
+        ["Soldagem", "União de peças em que o metal-base é fundido na junta, com ou sem metal de adição."],
+        ["Solidificação", "Passagem do estado líquido para o sólido, por nucleação e crescimento de cristais."],
+        ["Solidus", "Linha do diagrama de fases abaixo da qual a liga está totalmente sólida."],
+        ["Solução sólida", "Liga em que átomos de soluto se dissolvem na rede cristalina do solvente, formando uma só fase; pode ser substitucional ou intersticial."],
+        ["Solvus", "Linha do diagrama que indica o limite de solubilidade de um elemento em uma fase sólida."],
+        ["Substitucional", "Solução sólida em que átomos do soluto ocupam posições de átomos do solvente na rede cristalina."],
+        ["Têmpera", "Resfriamento rápido do aço após a austenitização, para formar martensita e aumentar a dureza."],
+        ["Temperabilidade", "Facilidade de um aço formar martensita em profundidade na têmpera."],
+        ["Tenacidade", "Capacidade de absorver energia até a fratura; resistência ao impacto e à propagação de trincas."],
+        ["Tensão", "Força por unidade de área, em pascal (Pa)."],
+        ["Trabalho a frio", "Deformação plástica abaixo da temperatura de recristalização, que causa encruamento."],
+        ["Trabalho a quente", "Deformação plástica acima da temperatura de recristalização, sem acúmulo de encruamento."],
+        ["Tratamento térmico", "Ciclo controlado de aquecimento, permanência e resfriamento para modificar a microestrutura e as propriedades."],
+        ["Trefilação", "Passagem do metal por uma fieira, puxando-o, para reduzir a seção e produzir fios e arames."],
+        ["Usinagem", "Conformação por remoção de material com ferramentas de corte, como torneamento, fresamento e furação."],
+        ["Vacância", "Defeito pontual em que falta um átomo em uma posição da rede cristalina."],
+        ["ZTA (zona termicamente afetada)", "Região do metal-base vizinha à solda que não chegou a fundir, mas teve a microestrutura e as propriedades alteradas pelo calor."],
+        ["1020", "Aço-carbono comum, com cerca de 0,20% de carbono (designação SAE/AISI)."],
+        ["304", "Aço inoxidável austenítico com cerca de 18% de cromo e 8% de níquel (designação AISI/SAE)."],
+        ["316L", "Aço inoxidável austenítico com adição de molibdênio, mais resistente à corrosão por cloretos; o L indica baixo teor de carbono."],
+        ["4140", "Aço-liga ao cromo e molibdênio, com cerca de 0,40% de carbono, usado em peças temperáveis."],
+        ["6061", "Liga de alumínio com magnésio e silício, tratável termicamente, de uso estrutural geral."],
+        ["7075", "Liga de alumínio com zinco (principal), magnésio e cobre, de resistência muito alta, usada em aeronáutica."]
+        ]
+      };
+
+      const GL_LETRAS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      const GL_NUMEROS = '0123456789'.split('');
+
+      function glNorm(s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); }
+      function glChave(termo) { return glNorm(termo).charAt(0); }
+      function glEsc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+      function glNomePagina(id) {
+        if (typeof SUBPAGES !== 'undefined' && SUBPAGES[id]) return SUBPAGES[id].name;
+        for (let i = 0; i < DOMAINS.length; i++) {
+          const s = DOMAINS[i].subjects.find(function (x) { return (x.page || x.id) === id; });
+          if (s) return s.name;
+        }
+        return id;
+      }
+
+      function glMontar(painel, id) {
+        const termos = (GLOSSARIO[id] || []).slice().sort(function (a, b) {
+          return glNorm(a[0]).localeCompare(glNorm(b[0]), 'pt-BR');
+        });
+        if (!termos.length) {
+          painel.innerHTML =
+            '<div class="sec-title">Glossário Técnico</div>' +
+            '<div class="sec-subtitle">Os termos técnicos de ' + glEsc(glNomePagina(id)) + ', em ordem alfabética</div>' +
+            '<div class="games-placeholder"><div class="games-placeholder-icon">📖</div>' +
+            '<div class="games-placeholder-title">Em preparação</div>' +
+            '<div class="games-placeholder-text">O glossário desta página ainda não tem termos. Cada termo entra em ordem alfabética, com filtro por letra e por número, sem modificar o restante da página.</div></div>';
+          return;
+        }
+        const existentes = {};
+        termos.forEach(function (t) { existentes[glChave(t[0])] = true; });
+        function botao(c) {
+          return '<button type="button" class="gl-btn" data-f="' + c + '"' + (existentes[c] ? '' : ' disabled') + '>' + c + '</button>';
+        }
+        painel.innerHTML =
+          '<div class="sec-title">Glossário Técnico</div>' +
+          '<div class="sec-subtitle">Os termos técnicos de ' + glEsc(glNomePagina(id)) + ' em ordem alfabética — filtre por letra ou por número</div>' +
+          '<div class="gl-barra" role="toolbar" aria-label="Filtrar por letra ou número">' +
+            '<button type="button" class="gl-btn gl-btn-todos ativo" data-f="*">Todos</button>' +
+            GL_LETRAS.map(botao).join('') +
+            '<span class="gl-grupo-num">' + GL_NUMEROS.map(botao).join('') + '</span>' +
+          '</div>' +
+          '<div class="gl-contagem" aria-live="polite"></div>' +
+          '<div class="gl-lista">' +
+            termos.map(function (t) {
+              return '<div class="gl-item" data-k="' + glChave(t[0]) + '"><div class="gl-termo">' + glEsc(t[0]) + '</div><div class="gl-def">' + glEsc(t[1]) + '</div></div>';
+            }).join('') +
+          '</div>';
+        painel.querySelector('.gl-barra').addEventListener('click', function (ev) {
+          const b = ev.target.closest('.gl-btn');
+          if (!b || b.disabled) return;
+          glFiltrar(painel, b.getAttribute('data-f'));
+        });
+        glFiltrar(painel, '*');
+      }
+
+      function glFiltrar(painel, chave) {
+        painel.querySelectorAll('.gl-btn').forEach(function (b) { b.classList.toggle('ativo', b.getAttribute('data-f') === chave); });
+        let visiveis = 0, ultima = null;
+        painel.querySelectorAll('.gl-lista > *').forEach(function (el) { if (el.classList.contains('gl-letra')) el.remove(); });
+        painel.querySelectorAll('.gl-item').forEach(function (el) {
+          const mostrar = chave === '*' || el.getAttribute('data-k') === chave;
+          el.style.display = mostrar ? '' : 'none';
+          if (mostrar) {
+            visiveis++;
+            const k = el.getAttribute('data-k');
+            if (k !== ultima) {
+              ultima = k;
+              const h = document.createElement('div');
+              h.className = 'gl-letra';
+              h.textContent = k;
+              el.parentNode.insertBefore(h, el);
+            }
+          }
+        });
+        painel.querySelector('.gl-contagem').textContent = visiveis + (visiveis === 1 ? ' termo' : ' termos') + (chave === '*' ? '' : ' em "' + chave + '"');
+      }
+
+      // sistemas de abas existentes no site: o padrão (.tab-btn/.tab-panel) e o de Aritmética, Álgebra e Geometria
+      const GL_SISTEMAS = [
+        { barra: '.tabs-inner', botao: 'tab-btn', painel: 'tab-panel', embrulhar: false },
+        { barra: '.arit-tabs-inner', botao: 'arit-page-tab', painel: 'arit-view-panel', embrulhar: true }
+      ];
+
+      (function iniciarGlossario() {
+        document.querySelectorAll('.view').forEach(function (view) {
+          const id = view.id.replace(/^view-/, '');
+          if (id === 'home') return;
+          const sis = GL_SISTEMAS.find(function (s) { return view.querySelector(s.barra) && view.querySelector('.' + s.painel); });
+          if (!sis) return;
+          const barra = view.querySelector(sis.barra);
+          const ref = view.querySelector('.' + sis.painel);
+          const painel = document.createElement('div');
+          painel.className = sis.painel;
+          painel.id = 'panel-glossario-' + id;
+          let alvo = painel;
+          if (sis.embrulhar) { alvo = document.createElement('div'); alvo.className = 'gl-wrap'; painel.appendChild(alvo); }
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = sis.botao;
+          btn.textContent = 'Glossário Técnico';
+          btn.addEventListener('click', function () {
+            view.querySelectorAll('.' + sis.painel).forEach(function (p) { p.classList.remove('active'); });
+            view.querySelectorAll('.' + sis.botao).forEach(function (b) { b.classList.remove('active'); });
+            if (!painel.getAttribute('data-pronto')) { glMontar(alvo, id); painel.setAttribute('data-pronto', '1'); }
+            painel.classList.add('active');
+            btn.classList.add('active');
+          });
+          barra.appendChild(btn);
+          ref.parentNode.appendChild(painel);
+        });
       })();
     </script>
   </body>
