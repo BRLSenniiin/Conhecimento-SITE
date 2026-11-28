@@ -12719,63 +12719,351 @@ Esta trilha segue essa lógica: primeiro como a web funciona, depois cada lingua
                     <div class="met-tool-card">
                       <div class="met-tool-avatar-box">
                         <div class="met-tool-circle-bg"><span class="met-tool-emoji">🖥️</span></div>
+                        <div class="met-tool-img-wrapper">
+                          <img src="Images\Icons\Desenvolvimento Web\VSCode.webp" alt="Visual Studio Code" onload="this.parentElement.previousElementSibling.style.display='none';" onerror="this.style.display='none';">
+                        </div>
                       </div>
                       <div class="met-tool-name">VS Code (abrir a pasta do projeto)</div>
                     </div>
 
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">🌐</span></div>
-                      </div>
-                      <div class="met-tool-name">Navegador com ferramentas do desenvolvedor (F12)</div>
-                    </div>
-
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">🔄</span></div>
-                      </div>
-                      <div class="met-tool-name">Extensão Live Server (opcional)</div>
-                    </div>
-
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">🌿</span></div>
-                      </div>
-                      <div class="met-tool-name">Git (histórico e commits)</div>
-                    </div>
-
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">✅</span></div>
-                      </div>
-                      <div class="met-tool-name">Validador HTML do W3C (Nu HTML Checker)</div>
-                    </div>
-
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">💾</span></div>
-                      </div>
-                      <div class="met-tool-name">Cópia de segurança do arquivo</div>
-                    </div>
-
-                    <div class="met-tool-card">
-                      <div class="met-tool-avatar-box">
-                        <div class="met-tool-circle-bg"><span class="met-tool-emoji">🔍</span></div>
-                      </div>
-                      <div class="met-tool-name">Busca em toda a pasta (Ctrl+Shift+F)</div>
-                    </div>
-
                   </div>
-                  <div class="hist-detail drop-cap"><strong>Gerir um site criado por IA</strong> é assumir o papel de dono do código: entender como ele está montado, saber onde cada coisa fica, mudar só o que você quer, conferir o resultado e conseguir desfazer qualquer erro. A boa notícia é que o código gerado por IA costuma ser muito repetitivo — as mesmas peças (um card, uma aba, um guia) se repetem com conteúdos diferentes. No arquivo deste site, por exemplo, cada matéria é uma <em>view</em>, cada aba é um painel e cada guia é um item de lista com a mesma estrutura. Escrever "naturalmente, como se fosse você" significa aprender o molde dessas peças e usá-lo, em vez de inventar estrutura nova. O estudo abaixo segue a ordem do trabalho real: preparar o ambiente, ler o mapa do arquivo, editar com segurança, conferir, guardar versões e cuidar do que não pode vazar.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>1. Preparar o ambiente</strong> — no VS Code, abra a <strong>pasta</strong> do site (File › Open Folder), e não só o arquivo: assim a busca em todos os arquivos e o controle de versão passam a funcionar. Para ver a página, a forma mais simples é abrir o .html no navegador e recarregar (F5) a cada salvamento (Ctrl+S). Opcionalmente, a extensão Live Server (ritwickdey.liveserver) abre um servidor local e recarrega o navegador sozinha: depois de instalada, clique em Go Live na barra de status ou clique com o botão direito no .html e escolha Open with Live Server. Se for usar controle de versão, o VS Code usa o Git instalado no seu computador, em versão 2.0.0 ou superior.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>2. Ler o mapa do arquivo</strong> — um site de um arquivo só costuma ter três camadas: o CSS (dentro de style), o HTML (a estrutura, em blocos) e o JavaScript (dentro de script, que muitas vezes guarda também os <em>dados</em>, como listas de itens). Para se localizar: Ctrl+F procura no arquivo aberto; Ctrl+Shift+F procura em toda a pasta; Ctrl+G vai direto a uma linha; Ctrl+Shift+O lista as funções e símbolos do arquivo; Ctrl+P abre um arquivo pelo nome; Ctrl+Shift+[ dobra um bloco, o que ajuda a enxergar a estrutura em arquivos grandes. Um bom hábito é procurar pelo <em>texto visível</em> da parte que você quer mudar (o título de uma aba, por exemplo) e, a partir dele, achar o bloco de HTML ou a linha de dados correspondente.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>3. Editar copiando um molde</strong> — a forma mais segura de acrescentar conteúdo é copiar um bloco que já funciona (um card, um item de guia), colar logo abaixo e trocar só os textos. Não renomeie classes (class) nem ids: o CSS e o JavaScript do site dependem deles, e cada id precisa ser único. Quando o conteúdo mora em listas dentro do JavaScript, o risco muda: uma vírgula a mais ou a menos, ou um apóstrofo dentro de um texto entre aspas simples, pode derrubar o script inteiro. No HTML, os erros típicos são elementos sem fechamento, elementos aninhados na ordem errada e atributos com aspas sem fechar. Nos textos, escreva &amp;amp; no lugar de &amp; e &amp;lt; no lugar de &lt;. Faça uma mudança de cada vez e salve antes de seguir. Cuidado com o Replace All e com a substituição em toda a pasta (Ctrl+Shift+H) em arquivos grandes: um termo comum pode ser trocado em lugares que você não viu.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>4. Conferir cada mudança</strong> — salve, recarregue e abra as ferramentas do desenvolvedor (F12). A aba <strong>Console</strong> mostra os erros de JavaScript em vermelho, com arquivo e linha; o <strong>inspetor de elementos</strong> mostra o HTML que o navegador realmente montou. Esse detalhe importa: o navegador perdoa HTML malformado e o conserta em silêncio, às vezes mudando o lugar das coisas, então uma página que parece normal pode estar com a estrutura quebrada. Para o HTML, use o validador do W3C (Nu HTML Checker), que aceita um arquivo enviado, um endereço público ou o código colado e aponta, entre outros erros, aninhamentos inválidos e ids duplicados. No VS Code, o painel Problems (Ctrl+Shift+M) e o atalho F8 mostram e percorrem os avisos e erros que o editor detecta.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>5. Desfazer e guardar versões</strong> — antes de uma mudança grande, copie o arquivo (por exemplo, index-backup-data.html). O Ctrl+Z desfaz a edição atual; para voltar mais longe, a visão Timeline, no Explorer, lista os salvamentos locais e os commits do arquivo aberto e permite comparar versões. Com o Git, o ciclo é: abrir a visão Source Control (Ctrl+Shift+G), clicar no arquivo alterado para ver, lado a lado, o antes e o depois no editor de diferenças, confirmar que só mudou o que você queria e fazer o commit com uma mensagem curta (por exemplo, Adiciona estudo sobre gestão do site). Um commit grava um instantâneo no histórico local e não envia nada a um servidor. Se errar o último commit, existe o comando Git: Undo Last Commit, na paleta de comandos (Ctrl+Shift+P).</div>
+                  <div class="hist-detail drop-cap"><strong>Gerir um site criado por IA</strong> é assumir o papel de dono do código: entender como ele está montado, saber onde cada coisa fica, mudar só o que você quer, conferir o resultado e conseguir desfazer qualquer erro. A boa notícia é que o código gerado por IA costuma ser muito repetitivo — as mesmas peças (um card, uma aba, um guia) se repetem com conteúdos diferentes. No seu SENNIIIN, por exemplo, cada notícia, cada dica e cada guia é um bloco com os mesmos campos, só com conteúdos diferentes, e as cinco abas (Início, Guias, Dicas, Minha fila e Sobre) são montadas a partir desses dados. Escrever "naturalmente, como se fosse você" significa aprender o molde dessas peças e usá-lo, em vez de inventar estrutura nova. O estudo abaixo segue a ordem do trabalho real: preparar o ambiente, ler o mapa do site, editar com segurança, conferir, guardar versões e cuidar do que não pode vazar.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>1. Preparar o ambiente</strong> — no VS Code, abra a <strong>pasta</strong> do site (File › Open Folder), e não só o arquivo: assim a busca em todos os arquivos passa a funcionar. Para ver a página, abra o <code>index.html</code> no navegador e recarregue (F5) a cada salvamento (Ctrl+S), com o Console (F12) aberto ao lado: assim o erro aparece no instante em que você salva, e não minutos depois, quando já não lembra o que mexeu.</div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\vscode-pasta-aberta.webp" alt="VS Code com a pasta do site aberta no Explorer, à esquerda" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do VS Code com a pasta SENNIIIN aberta, mostrando o Explorer com index.html, css, js e dados.</span>
+                    </div>
+                  </div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> abra a pasta <strong>raiz</strong>, a que contém o <code>index.html</code> e, ao lado dele, <code>css/</code>, <code>js/</code>, <code>dados/</code>, <code>modelos/</code> e <code>Images/</code>. Se você abrir só uma subpasta (por exemplo <code>dados/</code>), o Ctrl+Shift+F não enxerga o resto do site.
+                  </div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica:</b> a aba de um arquivo com um <strong>ponto</strong> no lugar do X está com mudanças não salvas: salve com Ctrl+S antes de recarregar o navegador, senão você vai olhar a versão antiga e achar que a mudança não funcionou.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>2. Ler o mapa do arquivo</strong> — o SENNIIIN divide o trabalho em camadas, cada uma na sua pasta: a aparência (CSS) em <code>css/</code>, o código (JavaScript) em <code>js/</code> e os <strong>dados</strong>, que são os textos e números que aparecem na tela, em <code>dados/</code>. O <code>index.html</code> é só a casca que carrega tudo. Para se localizar: Ctrl+F procura no arquivo aberto; Ctrl+Shift+F procura em toda a pasta; Ctrl+G vai direto a uma linha; Ctrl+Shift+O lista as funções e símbolos do arquivo; Ctrl+P abre um arquivo pelo nome; Ctrl+Shift+[ dobra um bloco, o que ajuda a enxergar a estrutura em arquivos grandes. Um bom hábito é procurar pelo <em>texto visível</em> da parte que você quer mudar (o título de uma aba, por exemplo) e, a partir dele, achar o bloco de HTML ou a linha de dados correspondente.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">SENNIIIN/
+├─ index.html ........ casca de 1,5 KB: só carrega js/carregar.js
+├─ gta-vi.html … ..... uma página por jogo (5), todas com a mesma casca
+├─ css/site.css ...... toda a aparência
+├─ js/carregar.js .... a LISTA de arquivos do site (a ordem importa)
+├─ js/ (outros 12) ... o código que monta as telas
+├─ dados/ ............ textos e números: site.js, jogos-lista.js, dicas.js…
+│  └─ guias/ ......... um arquivo por jogo, com o conteúdo do guia
+├─ modelos/ .......... moldes para publicar um jogo novo
+├─ Images/ ........... logo e imagens do site
+├─ SENNIIIN TEXTOS/ .. rascunhos em .txt (nenhum arquivo do site os lê)
+└─ sitemap.xml · robots.txt · .nojekyll</div>
+                    <figcaption class="hist-figure-caption">Mapa real do seu site: cada pasta tem uma função, e isso diz onde procurar antes de editar.</figcaption>
+                  </figure>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> o texto de cada guia mora em <code>dados/guias/&lt;jogo&gt;.js</code> e o código que monta a tela mora em <code>js/</code>. Por isso, ao procurar pelo texto visível, o resultado quase sempre cai em <code>dados/</code>. Com o Ctrl+P, digitar <code>until</code> já lista os arquivos do Until Dawn.
+                  </div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o <code>js/carregar.js</code> é a lista dos arquivos do site, e a ordem dela importa: o próprio arquivo avisa para não trocar nada de lugar. Um arquivo que usa o que outro define só funciona se vier depois dele.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>3. Editar copiando um molde</strong> — a forma mais segura de acrescentar conteúdo é copiar um bloco que já funciona (uma notícia, uma dica), colar e trocar só os textos. No SENNIIIN os textos moram em listas dentro de arquivos de <code>dados/</code>, então é isso que você mais vai editar, e a regra é <strong>mexer só em <code>dados/</code> e em <code>Images/</code></strong>. Não renomeie as chaves (<code>titulo</code>, <code>texto</code>, <code>cat</code>…) nem classes e ids: o código do site depende desses nomes, e cada id precisa ser único. O risco desse formato é pequeno e conhecido: uma vírgula a mais ou a menos, ou um apóstrofo dentro de um texto entre aspas simples, pode derrubar o arquivo inteiro. Nos arquivos .html, os erros típicos são elementos sem fechamento, elementos aninhados na ordem errada e atributos com aspas sem fechar. Nos campos <code>titulo</code> e <code>texto</code>, escreva <code>&amp;</code> e <code>&lt;</code> normalmente, porque o site faz o escape sozinho; só nos blocos de <code>corpo</code> o texto entra como HTML, e ali vale a regra do HTML (<code>&amp;amp;</code> no lugar de <code>&amp;</code>). Faça uma mudança de cada vez e salve antes de seguir. Cuidado com o Replace All e com a substituição em toda a pasta (Ctrl+Shift+H): um termo comum pode ser trocado em lugares que você não viu.</div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> quase todo texto do site tem duas versões, <code>{ pt: '...', en: '...' }</code>. Mude as duas para o inglês não ficar desatualizado (se faltar o <code>en</code>, o site mostra o <code>pt</code> sem quebrar; não apague o <code>pt</code>). E o apóstrofo dentro de um texto entre aspas simples precisa de barra invertida:<br><span style="font-family:'Courier Prime',monospace; font-size:12px;">errado: en: 'this game's platinum' &nbsp;← fecha o texto antes da hora<br>certo: &nbsp;en: 'this game\'s platinum' &nbsp;← a barra avisa que o apóstrofo é parte do texto</span>
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Notícia</strong>, em <code>dados/novidades.js</code> — cada notícia é um bloco entre chaves. Os campos: <code>tipo</code> (<code>'guia'</code>, <code>'dica'</code> ou <code>'site'</code>, que decide o filtro); <code>badge</code> (<code>'novo'</code>, <code>'atualizado'</code> ou <code>'breve'</code>); <code>data</code> no formato <code>'AAAA-MM-DD'</code>; <code>titulo</code> e <code>texto</code>, cada um com <code>pt</code> e <code>en</code>; e <strong>um</strong> destino: <code>href: '#jogo/until-dawn'</code> (abre o guia de um jogo) ou <code>aba: 'dicas'</code> (abre uma aba: <code>home</code>, <code>guias</code>, <code>dicas</code>, <code>fila</code> ou <code>sobre</code>). A imagem é opcional (<code>img</code> e <code>imgAlt</code>).</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">const NOVIDADES = [
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">  { tipo: 'site', badge: 'novo', data: '2026-11-26', aba: 'guias',
+    titulo: { pt: 'Meu título', en: 'My title' },
+    texto:  { pt: 'Uma ou duas frases.', en: 'One or two sentences.' } },</mark>   ← seu bloco novo, com vírgula no fim
+  { tipo: 'guia', badge: 'novo', data: '2026-11-24', href: '#jogo/ball-x-pit',</div>
+                    <figcaption class="hist-figure-caption">Onde colar: logo depois de <code>const NOVIDADES = [</code>, com uma vírgula depois do seu bloco.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o <strong>último</strong> bloco da lista não tem vírgula e vem seguido de um comentário e do <code>]</code>. Se você colar depois dele sem acrescentar uma vírgula no bloco anterior, o arquivo inteiro quebra; colando no topo, como na figura, esse risco não existe. A posição não muda a ordem na tela: o site <strong>ordena pela data</strong>, da mais nova para a mais antiga, e o bloco com <code>data: null</code> vai para o fim. E o filtro <em>Tudo</em> mostra só as <strong>4</strong> mais novas (os outros filtros mostram até 20): uma notícia sua pode "sumir" do <em>Tudo</em> sem ter defeito.
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Dica</strong>, em <code>dados/dicas.js</code> — copie um bloco simples (como o d19). Os campos: <code>id</code>, que precisa ser <strong>único</strong> (hoje vão de d01 a d20, então a próxima é <code>'d21'</code>); <code>cat</code>, uma das categorias da lista <code>CATEGORIAS</code>; <code>titulo</code> e <code>texto</code> com <code>pt</code> e <code>en</code>; e, se a dica for de um jogo, <code>jogo</code> escrito <strong>exatamente</strong> como no campo <code>jogo</code> de <code>dados/jogos-lista.js</code> (por exemplo, <code>'Until Dawn'</code>): assim ela aparece também na aba Dicas daquele guia. Aqui a regra é o oposto das notícias: as dicas novas vão no <strong>fim</strong> da lista, porque o site as lê de trás para frente.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">  { id: 'd20', cat: 'Troféus', jogo: 'BALL x PIT', img: '',
+    titulo: { … },
+    texto:  { … } }<mark style="background:rgba(176,136,48,0.30); color:inherit;">,</mark>   ← vírgula nova aqui
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">  { id: 'd21', cat: 'Dicas gerais',
+    titulo: { pt: 'Meu título', en: 'My title' },
+    texto:  { pt: 'Minha dica em uma ou duas frases.', en: 'My tip in one or two sentences.' } }</mark>   ← sem vírgula: é o último
+]</div>
+                    <figcaption class="hist-figure-caption">Onde colar: no fim da lista <code>DICAS</code>, antes do <code>]</code>. O bloco anterior ganha uma vírgula; o seu, por ser o último, não leva.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> escreva o <code>cat</code> <strong>igual</strong> a uma destas chaves, com acentos: Colecionáveis, Exploração, Builds, Estratégias, Perdíveis, Farm, Dicas gerais, Troféus. Com <code>Perdiveis</code> sem acento, o código não acha a categoria e dá erro ao desenhar o card. No campo <code>texto</code> o conteúdo é puro: uma marca como <code>&lt;strong&gt;</code> aparece escrita na tela; já nos blocos de <code>corpo</code>, usados nas dicas longas como a d12, o <code>&lt;strong&gt;</code> funciona.
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Imagem</strong>, em <code>Images/</code> — converta para <code>.webp</code> e dê um nome só com letras minúsculas, números e hífens, sem espaço e sem acento (por exemplo, <code>meu-print-capa.webp</code>). Uma sugestão de organização é separar em subpastas, como <code>Images/Novidades/</code> e <code>Images/Dicas/</code>. No dado, o caminho começa na raiz do site: <code>img: 'Images/Novidades/meu-print-capa.webp'</code>.</div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\noticia-no-inicio.webp" alt="Card de notícia com imagem na faixa Novidades do Início" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do Início do SENNIIIN com um card da faixa Novidades mostrando a imagem que você colocou.</span>
+                    </div>
+                  </div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o Windows <strong>não diferencia</strong> maiúsculas de minúsculas, mas o GitHub Pages diferencia: <code>Foto.webp</code> funciona no seu computador e some no site publicado se o dado disser <code>foto.webp</code>. O próprio <code>dados/site.js</code> avisa disso. Além disso, o site <strong>esconde em silêncio</strong> a imagem que não carrega (o código a remove, sem erro no Console): se ela não aparece, abra a aba <strong>Rede</strong> (Network) do F12, recarregue e procure o arquivo em vermelho (404), que indica caminho ou nome errado.
+                  </div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> os comentários de <code>novidades.js</code> e <code>dicas.js</code> dão exemplos com <code>imagens/</code>, em minúsculas, mas a pasta que existe no seu site é <code>Images/</code>. Use sempre a que existe.
+                  </div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">  'dados/guias/until-dawn.js',
+  'dados/guias/ball-x-pit.js',
+  <mark style="background:rgba(176,136,48,0.30); color:inherit;">'dados/guias/seu-jogo-novo.js',</mark>   ← linha nova, logo depois do último guia
+  'js/base.js',</div>
+                    <figcaption class="hist-figure-caption">Exemplo em <code>js/carregar.js</code>: um arquivo novo só passa a existir para o site quando entra nesta lista (a linha destacada é ilustrativa).</figcaption>
+                  </figure>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> para publicar um jogo novo existe um molde pronto: copie <code>modelos/novo-jogo.js</code> para <code>dados/guias/&lt;id&gt;.js</code> (o <code>id</code> é o mesmo usado em <code>dados/jogos-lista.js</code>) e <code>modelos/pagina-de-jogo.html</code> para a raiz, com o nome <code>&lt;id&gt;.html</code>. A receita completa de 6 passos está no começo de <code>dados/guias/base-jogos.js</code>.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>4. Conferir cada mudança</strong> — salve, recarregue e abra as ferramentas do desenvolvedor (F12). A aba <strong>Console</strong> mostra os erros de JavaScript em vermelho, com arquivo e linha; o <strong>inspetor de elementos</strong> mostra o HTML que o navegador realmente montou. Esse detalhe importa: o navegador perdoa HTML malformado e o conserta em silêncio, às vezes mudando o lugar das coisas, então uma página que parece normal pode estar com a estrutura quebrada. No VS Code, o painel Problems (Ctrl+Shift+M) e o atalho F8 mostram e percorrem os avisos e erros que o editor detecta.</div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\console-erro-javascript.webp" alt="Console do navegador mostrando um erro em vermelho com o nome do arquivo e a linha" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do Console (F12) com um erro em vermelho apontando o arquivo e a linha, como <code>dados/guias/seu-jogo.js:12</code>.</span>
+                    </div>
+                  </div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> como cada arquivo é separado, o erro vem com o <strong>nome do arquivo e o número da linha</strong>. Um erro de sintaxe impede só aquele arquivo de rodar, mas os arquivos seguintes que dependem dele passam a falhar, e o site pode abrir "vazio" ou sem o jogo que você editou. Comece sempre pelo <strong>primeiro</strong> erro vermelho do Console.
+                  </div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🔎 Lendo os sintomas:</b> <strong>site vazio ou sem os guias, com erro vermelho no Console</strong> → erro de sintaxe no arquivo citado; vá à linha indicada e olhe também a <em>de cima</em>, onde costuma estar a vírgula esquecida ou a aspa sem fechar. <strong>Site normal, mas seu item não aparece, sem erro</strong> → confira a data, o <code>tipo</code>, o limite de 4 do filtro <em>Tudo</em> e se salvou o arquivo certo. <strong>Item aparece, imagem não</strong> → caminho, maiúsculas ou extensão.
+                  </div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica:</b> se você tiver o Node.js instalado, o comando <code>node --check dados/guias/until-dawn.js</code>, rodado no terminal do VS Code (Ctrl+`), confere a sintaxe de um arquivo sem abrir o navegador. Se não imprimir nada, a sintaxe está certa. Nos 26 arquivos .js atuais do seu site, a checagem passou sem erro.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>5. Desfazer e guardar versões</strong> — antes de uma mudança grande, copie a pasta inteira do site para fora dela (por exemplo, SENNIIIN-backup); se for mexer em um arquivo só, copie só esse (por exemplo, <code>dicas-backup.js</code>), também para fora da pasta. O Ctrl+Z desfaz a edição atual; para voltar mais longe, a visão Timeline, no Explorer, lista os salvamentos locais do arquivo aberto e permite comparar versões.</div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\timeline-versoes.webp" alt="Visão Timeline do VS Code listando salvamentos anteriores de um arquivo" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura da Timeline com salvamentos anteriores de <code>dados/dicas.js</code> e a comparação com a versão atual.</span>
+                    </div>
+                  </div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> copie para <strong>fora</strong> da pasta do site: se você sobe a pasta inteira, tudo o que estiver dentro dela é publicado, inclusive as cópias de segurança.
+                  </div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>6. Cuidados com o que a IA deixou no código</strong> — tudo o que está no HTML e no JavaScript do navegador é visível para qualquer visitante, pelo código-fonte da página ou pela aba Rede das ferramentas do desenvolvedor. Por isso senhas e <strong>chaves de API secretas</strong> não devem ficar nesses arquivos: a prática recomendada de segurança é manter segredos fora do código do navegador e do armazenamento local, com as credenciais de API no servidor. Chaves somente de leitura, feitas para uso no navegador, são uma exceção, e a documentação do serviço costuma dizer quando é o caso. Faça uma busca em toda a pasta (Ctrl+Shift+F) por palavras como key, token, secret e password e confira o que encontrar.</div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN):</b> uma busca por <em>api key, token, secret, password</em> e <em>senha</em> em todos os .js e .html do site não achou nenhuma chave ou senha: os resultados vieram de palavras comuns (<em>desenhar</em> contém "senha", e <em>secret</em> aparece em textos de exemplo do GTA VI). O <code>storageKey</code> de <code>dados/site.js</code> não é segredo: é só o nome da gaveta, no navegador de cada visitante, onde o site guarda o progresso dele.
+                  </div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o <code>email</code> de <code>dados/site.js</code> aparece como link no site: o que você preencher ali fica público. E, em hospedagem de arquivos estáticos, tudo o que você enviar fica acessível pelo endereço, inclusive pastas de rascunho como <code>SENNIIIN TEXTOS/</code>, se subirem junto.
+                  </div>
                   <div class="hist-detail" style="margin-top:14px;"><strong>7. Pedir ajuda à IA sem bagunçar</strong> — o método é o mesmo da edição manual: cole o <em>trecho exato</em> (e não o arquivo inteiro), diga o que não pode mudar (ids, classes, estrutura), peça a menor alteração possível e confira o resultado no editor de diferenças antes de aceitar. Depois teste no navegador e olhe o Console. Se a mudança tocar muitas linhas fora do que você pediu, desconfie. Esta etapa é uma boa prática de trabalho, e não uma regra tirada de uma fonte externa: é o que o Tópico VI de Fundamentos descreve como projetar mudanças.</div>
-                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este estudo reúne informações básicas e ainda será aprofundado, por exemplo com publicação e hospedagem, backup em nuvem com GitHub, divisão de um arquivo muito grande em vários e desempenho. O conteúdo é resultado de uma análise comparativa de várias fontes técnicas e boas práticas de desenvolvimento, e não a cópia de uma única referência; as recomendações são o ponto final dessa análise e podem ser ajustadas. Os atalhos citados são os de Windows e Linux; no Mac, mudam.</div>
-                  <div class="hist-names"><span class="hist-name-tag">VS Code</span><span class="hist-name-tag">abrir a pasta</span><span class="hist-name-tag">Live Server</span><span class="hist-name-tag">Console</span><span class="hist-name-tag">inspetor de elementos</span><span class="hist-name-tag">validador W3C</span><span class="hist-name-tag">Git</span><span class="hist-name-tag">Timeline</span><span class="hist-name-tag">chaves de API</span></div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica: um pedido bem feito, com um exemplo do seu site</b> <br><span style="font-family:'Courier Prime',monospace; font-size:12px;">"Em dados/jogos-lista.js, no bloco do id 'until-dawn', troque só o campo dif de 2 para 3. Não altere mais nenhuma linha, nem ids, nem classes. Mostre o trecho antes e depois."</span><br>Ele diz <em>onde</em> (arquivo e bloco), <em>o que</em> (um campo, dois valores) e <em>o que não pode mudar</em>, e é fácil de conferir no editor de diferenças.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este estudo reúne informações básicas e ainda será aprofundado, por exemplo com publicação e hospedagem, backup em nuvem com GitHub, os textos longos dos guias (o campo <code>corpo</code>, em <code>dados/guias/&lt;jogo&gt;.js</code>) e desempenho. O conteúdo é resultado de uma análise comparativa de várias fontes técnicas e boas práticas de desenvolvimento, e não a cópia de uma única referência; as recomendações são o ponto final dessa análise e podem ser ajustadas. Os atalhos citados são os de Windows e Linux; no Mac, mudam.</div>
+                  <div class="hist-names"><span class="hist-name-tag">VS Code</span><span class="hist-name-tag">abrir a pasta</span><span class="hist-name-tag">Console</span><span class="hist-name-tag">inspetor de elementos</span><span class="hist-name-tag">Timeline</span><span class="hist-name-tag">chaves de API</span><span class="hist-name-tag">dados/</span><span class="hist-name-tag">Images/</span><span class="hist-name-tag">vírgula entre blocos</span><span class="hist-name-tag">id único</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="met-guide-item">
+              <div class="met-guide-header" id="devweb-guide-2-header" onclick="toggleMetGuide('devweb-guide-2')">
+                <span class="met-guide-icon">
+                  <span class="met-guide-icon-emoji">🌱</span>
+                </span>
+                <span class="met-guide-title">Guia - Pontos bases para um site parecer vivo</span>
+                <span class="met-guide-time-badge">⏱ ~35 min · leitura e prática</span>
+                <span class="met-guide-chevron" id="devweb-guide-2-chevron">▾</span>
+              </div>
+              <div class="met-guide-body" id="devweb-guide-2-body">
+                <div class="hist-entry" style="border:none; padding-top:0;">
+                  <div class="hist-event">Guia - Pontos bases para um site parecer vivo</div>
+                  <div class="hist-detail drop-cap">Um site <strong>parece vivo</strong> quando muda sozinho enquanto você não está mexendo nele e quando lembra de quem volta. No SENNIIIN isso não vem de truque nem de biblioteca: vem de três decisões simples. Primeira, o conteúdo mora em <strong>dados</strong> e o código só lê (o próprio <code>dados/site.js</code> diz: edite aqui, o resto do código só lê). Segunda, o código usa o <strong>tempo</strong>: a data de hoje e a data da última visita decidem o que aparece. Terceira, o navegador do visitante guarda a <strong>memória</strong> dele. Este guia mostra o código real de cada decisão, o que é indispensável e o que é apoio, como as partes se ligam, como manter o site leve e como criar entradas para ele receber mais informação sem reescrever nada.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>1. O que forma o site</strong> — são cinco camadas, cada uma na sua pasta: a <strong>casca</strong> (<code>index.html</code> e <code>js/casca.js</code>, a moldura fixa com menu, painéis, rodapé e busca); os <strong>dados</strong> (<code>dados/</code>, textos e números); o <strong>motor</strong> (<code>js/</code>, funções <code>render…</code> que transformam dado em HTML); a <strong>aparência</strong> (<code>css/site.css</code>); e a <strong>memória</strong> do visitante (<code>localStorage</code>, no navegador dele). As páginas dos jogos, como <code>gta-vi.html</code>, são a mesma casca com uma linha a mais, <code>PAGINA_INICIAL</code>, que faz o site abrir direto naquele guia.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">index.html .......... 1,5 KB: só chama js/carregar.js
+  └─ js/carregar.js .... carrega os arquivos da lista, NESTA ordem:
+       1  js/casca.js ........... a moldura fixa: menu, painéis, rodapé, busca
+       2  js/nucleo.js .......... o idioma: LANG e L()
+       3  dados/*.js ............ site, jogos-lista, novidades, dicas, sobre, textos, guias/
+       4  js/base.js ............ a memória do visitante e as ferramentas
+       5  js/paginas.js … ....... leem os dados e montam as telas (render…)
+       6  js/eventos.js ......... um só ouvinte de clique para tudo (data-action)
+       7  js/inicio.js .......... dá a partida: memória, idioma, desenho, aba</div>
+                    <figcaption class="hist-figure-caption">Do arquivo à tela: a ordem é a da lista de <code>js/carregar.js</code>.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> cada arquivo da lista só pode usar o que veio <strong>antes</strong> dele. Por isso os dados vêm antes do código que os lê, e o <code>js/inicio.js</code>, que dá a partida, vem por último. Trocar a ordem derruba o site.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>2. O que é necessário e o que não é</strong> — a pergunta útil é: <em>se esse arquivo sumir, o que acontece?</em> No SENNIIIN a resposta separa bem as duas listas abaixo.</div>
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin:14px 0;"><div style="border:1px solid var(--border2); border-left:3px solid #2e6e46; border-radius:6px; padding:10px 14px; background:var(--surface2);"><b>✅ Necessário: sem isso o site não funciona</b><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>index.html</code> e <code>js/carregar.js</code>: a casca e a lista de arquivos</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;">todos os <code>js/*.js</code> da lista: o motor que monta as telas</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>dados/site.js</code>, <code>jogos-lista.js</code>, <code>novidades.js</code>, <code>dicas.js</code>, <code>sobre.js</code> e <code>textos.js</code>: o código lê todos eles</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><strong>ao menos 1 dica</strong> em <code>DICAS</code>: testei com a lista vazia, e a partida do site para no meio</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>css/site.css</code>: sem ele a página abre, mas sem aparência</div></div><div style="border:1px solid var(--border2); border-left:3px solid var(--gold2); border-radius:6px; padding:10px 14px; background:var(--surface2);"><b>➕ Opcional: ajuda, enfeite ou apoio</b><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>Images/Wallpaper.webp</code>, <code>LOGO.webp</code> e <code>Icon.webp</code>: só entram se o arquivo existir</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;">imagens de notícias, dicas e capas: se faltar, o site as remove e segue</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>&lt;jogo&gt;.html</code>: dá endereço próprio e texto para o Google; o guia abre também por <code>#jogo/&lt;id&gt;</code></div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>sitemap.xml</code> e <code>robots.txt</code>: só para buscadores</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>modelos/</code> e <code>SENNIIIN TEXTOS/</code>: moldes e rascunhos que nenhum arquivo lê</div><div style="padding:6px 0; border-top:1px solid var(--border2); font-size:0.88em;"><code>.nojekyll</code>: ajuste da hospedagem; nada no código depende dele</div></div></div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica:</b> em dúvida se um arquivo é usado, procure o nome dele no projeto inteiro (Ctrl+Shift+F). Se nenhum código o cita e ele não está na lista do <code>js/carregar.js</code>, o site não o lê.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>3. Como as partes se entendem</strong> — o SENNIIIN tem 24 arquivos de código e dados, seis páginas HTML e uma pasta de imagens, e nenhuma dessas peças "se conhece" sozinha. Elas se entendem por <strong>quatro tipos de cola</strong>, todos simples. Entender a cola é entender por que uma página faz parte do conjunto e o que quebra quando uma ligação falha.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">cada página .html ──carrega──▶ js/carregar.js ──carrega──▶ casca, dados e código
+                                                                │
+dados/jogos-lista.js  ◀── mesmo id ──▶  dados/guias/&lt;id&gt;.js     │ (ficam no mesmo espaço:
+        ▲                                                        │  um lê o que o outro define)
+        └── mesmo nome do jogo ──  dados/dicas.js               ▼
+dados/novidades.js ── href '#jogo/&lt;id&gt;' ──▶ rota (#…) ──▶ a tela do guia</div>
+                    <figcaption class="hist-figure-caption">O mapa das ligações: cada seta é uma cola descrita abaixo.</figcaption>
+                  </figure>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Cola 1 — um app só, com vários endereços.</strong> Todas as páginas (<code>index.html</code>, <code>gta-vi.html</code>…) chamam o mesmo <code>js/carregar.js</code> e o mesmo <code>css/site.css</code>. Por isso cada página é o <strong>site inteiro</strong> começando num ponto diferente: o que muda é só o título, a descrição (que o Google lê), o texto de <code>noscript</code> e a linha <code>PAGINA_INICIAL</code>. Uma página pertence ao conjunto quando carrega o <code>carregar.js</code>; sem a linha <code>PAGINA_INICIAL</code>, como no <code>index.html</code>, o site abre no Início. Testei: abrir <code>gta-vi.html</code> leva direto ao guia do GTA VI e o endereço vira <code>#jogo/gta-vi</code>.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">&lt;script&gt;window.PAGINA_INICIAL = 'jogo/gta-vi'&lt;/script&gt;
+&lt;script src="js/carregar.js"&gt;&lt;/script&gt;</div>
+                    <figcaption class="hist-figure-caption">O fim de <code>gta-vi.html</code>: as duas linhas que fazem a página entrar no conjunto.</figcaption>
+                  </figure>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Cola 2 — o endereço dentro do site (a rota).</strong> O que vem depois do <code>#</code> diz o que mostrar, e o <code>js/inicio.js</code> escuta a mudança do endereço e chama <code>showTab</code>, que entrega os endereços <code>jogo/…</code> a <code>showJogo</code>. Um id que não existe cai na aba Guias (testei com <code>#jogo/inexistente</code>). Na notícia, quem decide é o campo: com <code>href</code> ela vira um link comum; sem <code>href</code>, vira um botão que abre a aba do campo <code>aba</code>. Os botões do site trocam o endereço com <code>replaceState</code>, que não cria entrada no histórico (testei: o histórico continuou com 1 entrada), então o botão Voltar do navegador não percorre as abas visitadas.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">#home · #guias · #dicas · #fila · #sobre ............ as abas do topo
+#jogo/until-dawn ..................................... o guia (visão geral)
+#jogo/until-dawn/dicas ............................... uma seção do guia
+#jogo/until-dawn/novidades/guia-criado ............... uma novidade dentro do guia</div>
+                    <figcaption class="hist-figure-caption">As formas de endereço que o site entende.</figcaption>
+                  </figure>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Cola 3 — o mesmo id, escrito em vários lugares.</strong> O <code>id</code> de um jogo é o fio que prende as peças: ele aparece na lista de jogos, na chave do arquivo do guia, na lista do <code>carregar.js</code>, na página <code>.html</code> e no <code>sitemap.xml</code>. A busca por <code>until-dawn</code> no projeto inteiro mostra todas as ligações: ele aparece em <strong>7 arquivos</strong>: os cinco da figura abaixo, mais o link de uma notícia em <code>dados/novidades.js</code> e um arquivo de notas. Quando o id não bate, o site <strong>não dá erro</strong>: abre o guia vazio, com as seções "em preparo" (testei trocando o id dentro do arquivo do guia e tirando o arquivo da lista). Uma falha silenciosa é pior que um erro vermelho, por isso essa é a primeira coisa a conferir em um jogo novo.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">dados/jogos-lista.js ..... id: 'until-dawn',  href: '#jogo/until-dawn'
+dados/guias/until-dawn.js .. JOGOS['until-dawn'] = {
+js/carregar.js ............. 'dados/guias/until-dawn.js',
+until-dawn.html ............ window.PAGINA_INICIAL = 'jogo/until-dawn'
+sitemap.xml ................ …/until-dawn.html</div>
+                    <figcaption class="hist-figure-caption">O id <code>until-dawn</code> nos cinco lugares em que ele precisa ser idêntico.</figcaption>
+                  </figure>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\busca-id-no-projeto.webp" alt="Busca em toda a pasta no VS Code listando os arquivos que contêm until-dawn" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do Ctrl+Shift+F com <code>until-dawn</code>, listando os arquivos em que o id aparece.</span>
+                    </div>
+                  </div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção: o nome também é cola:</b> as dicas se ligam ao jogo pelo <strong>nome</strong> (<code>jogo: 'Until Dawn'</code>), comparado letra por letra com o <code>jogo</code> de <code>dados/jogos-lista.js</code>. Escrevi <code>Until Dawm</code> numa cópia: a dica deixou de contar entre as dicas do Until Dawn (de 2 para 1) e continuou aparecendo na aba Dicas, só que solta, sem erro nenhum.
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Cola 4 — nomes combinados entre os arquivos.</strong> Todos os arquivos de <code>js/</code> e <code>dados/</code> vivem no mesmo espaço: um define <code>NOVIDADES</code>, outro lê <code>NOVIDADES</code>, e o nome precisa ser idêntico, com a ordem do <code>carregar.js</code> garantindo que o definidor vem antes. O mesmo vale para três outros pares: o <code>id="home-stats"</code> que a casca cria é o que <code>$('home-stats')</code> procura em <code>js/paginas.js</code>; o <code>data-action="tab"</code> de um botão é o nome da função em <code>ACOES</code> (<code>js/eventos.js</code>); e o <code>data-i18n="chave"</code> de um texto é a chave de <code>dados/textos.js</code>. Um botão com <code>data-action</code> que não existe em <code>ACOES</code> simplesmente não faz nada, e sem erro no Console (testei): quando um botão não responde, comece conferindo a grafia desse nome.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Como fazer o conjunto se entender</strong> — ao acrescentar algo, confira só a cola daquilo que você acrescentou: <strong>jogo novo</strong> → o mesmo id nos cinco lugares, o <code>jogo</code> escrito igual em <code>jogos-lista.js</code> e nas dicas, e o arquivo na lista do <code>carregar.js</code>; <strong>dica de um jogo</strong> → <code>jogo</code> idêntico ao da lista; <strong>notícia</strong> → <code>href: '#jogo/&lt;id&gt;'</code> para levar a um guia, ou <code>aba: '&lt;id da aba&gt;'</code> (<code>home</code>, <code>guias</code>, <code>dicas</code>, <code>fila</code>, <code>sobre</code>) para levar a uma aba; <strong>botão novo</strong> → um <code>data-action</code> que exista em <code>ACOES</code>; <strong>faixa nova</strong> → o mesmo id de elemento na casca e na função.</div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica: o teste de conexão:</b> depois de publicar um jogo, abra <code>index.html#jogo/&lt;id&gt;</code> e <code>&lt;id&gt;.html</code>. Os dois devem abrir o mesmo guia, com o menu de seções completo. Se abrir o guia vazio, o problema é o id; se cair na aba Guias, o id não está em <code>jogos-lista.js</code>.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>4. O que deixa o site vivo</strong> — seis mecanismos, todos já no código. Nenhum deles exige que você mexa no site para continuar funcionando.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>a) Uma dica diferente por dia.</strong> O site conta o dia do ano e divide pelo total de dicas; o resto da divisão é a dica do dia. No dia da conferência (27/11/2026, dia 331 do ano), 331 dividido pelas 20 dicas sobra 11, e foi a dica de posição 11 que o site mostrou quando o executei. Amanhã será a seguinte, sem você fazer nada, e toda dica nova que entrar em <code>DICAS</code> entra no rodízio.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">UI.dica = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 864e5) % DICAS.length</div>
+                    <figcaption class="hist-figure-caption"><code>js/inicio.js</code>: <code>864e5</code> é o número de milissegundos de um dia.</figcaption>
+                  </figure>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\dica-do-dia.webp" alt="Faixa Dica do dia no Início do SENNIIIN" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do Início com a faixa da dica do dia e o botão para ver outra.</span>
+                    </div>
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>b) Lembra da última visita.</strong> A cada abertura, o site guarda a data de hoje; na abertura seguinte, compara a data de cada notícia com a da última visita e acende uma bolinha pulsante nas que são mais novas. Quem abre o site pela primeira vez não vê bolinha nenhuma, porque ainda não existe visita anterior.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">// js/paginas.js — cada notícia decide se acende a bolinha
+const novoPraVoce = UI.vistoAnterior &amp;&amp; n.data &amp;&amp; n.data &gt; UI.vistoAnterior
+
+// js/inicio.js — no fim da partida, o site anota que você esteve aqui hoje
+ESTADO.visto = hojeISO()
+salvar()</div>
+                    <figcaption class="hist-figure-caption">A <code>data</code> da notícia é o que "acende" o site para quem volta.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> a data tem de estar no formato <code>'AAAA-MM-DD'</code>. Esse formato se ordena corretamente como texto; <code>'27/11/2026'</code> daria uma comparação errada e a notícia pareceria sempre nova. Notícia com <code>data: null</code> nunca acende a bolinha.
+                  </div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\bolinha-novo-desde-a-visita.webp" alt="Card de notícia com a bolinha pulsante de novo" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura de um card da faixa Novidades com a bolinha de "novo desde a sua última visita".</span>
+                    </div>
+                  </div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>c) O tempo em linguagem humana.</strong> A função <code>quando()</code> transforma uma data em <em>hoje</em>, <em>ontem</em>, <em>N dias</em>, <em>N semanas</em> ou a data completa, e mostra <em>em preparo</em> quando não há data. É por isso que o "jogo a jogo" do Início parece em movimento: ele é ordenado pelo campo <code>atualizado: 'AAAA-MM-DD'</code> de cada guia, do mais recente ao mais antigo, e o texto "há 4 dias" vem da data, sem ninguém escrever.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>d) Números que se calculam sozinhos.</strong> A faixa de números do Início soma os dados na hora (<code>GUIAS.length</code>, a soma de troféus, a soma de perdíveis). Hoje o site mostra 5 guias, 497 troféus e 34 perdíveis, e esses números mudam sozinhos quando você publica um jogo; as "platinas" vêm da fila do próprio visitante.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>e) Movimento com cuidado.</strong> As dicas rápidas trocam sozinhas a cada 7 segundos (<code>LIMITES.rapidasSeg</code>) e pausam com o mouse em cima, o foco do teclado, o dedo na tela ou quando saem da tela. Em aparelhos com "reduzir movimento" ligado, o CSS desliga as animações e o JavaScript passa a trocar por relógio. Vivo, sem cansar e sem excluir quem não tolera animação.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>f) Memória do visitante.</strong> A fila, as dicas salvas, o idioma e a data da última visita ficam no <code>localStorage</code> do navegador, na chave <code>diario-platina-v1</code>; os troféus marcados como conquistados ficam em outra, <code>diario-platina-trofeus-v1</code>. Tudo é lido e gravado dentro de <code>try/catch</code>: se o navegador bloquear o armazenamento, o site continua, só não lembra. O idioma também é automático: sem escolha salva, o site usa o idioma do navegador (português se começar com <em>pt</em>, inglês nos outros casos). Ainda há dois gestos pequenos que dão sensação de vida: a tecla <kbd>/</kbd> abre a busca em qualquer tela, e a busca ignora acentos.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">// js/base.js
+function carregar() {
+  try {
+    const raw = localStorage.getItem(SITE.storageKey)
+    if (!raw) return
+    const d = JSON.parse(raw)
+    ESTADO.fila = Array.isArray(d.fila) ? d.fila : []
+    …
+  } catch (e) { /* storage indisponível: segue sem salvar */ }
+}</div>
+                    <figcaption class="hist-figure-caption"><code>js/base.js</code>: o site nunca depende da memória para abrir.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o <code>storageKey</code> de <code>dados/site.js</code> é o nome da "gaveta". Mudá-lo apaga, para todos os visitantes, o que eles já salvaram. O próprio arquivo avisa: não mude.
+                  </div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\local-storage-devtools.webp" alt="Aba Application do navegador mostrando as chaves do localStorage do site" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura do F12, aba Application, com as duas chaves do SENNIIIN em Local Storage.</span>
+                    </div>
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>5. Como deixar o site leve</strong> — o SENNIIIN já faz cinco coisas certas: carrega as fontes do Google sem travar a página (<code>media="print" onload="this.media='all'"</code>, mais <code>preconnect</code>); usa <code>loading="lazy"</code> e <code>decoding="async"</code> nas imagens, que saem de cena se falharem; limita quantos itens desenha em cada lugar (<code>LIMITES</code>, e o botão "Mostrar mais" libera o resto); troca de aba mudando só o painel e o <code>#endereço</code>, sem recarregar; e pausa a barra animada quando ela sai da tela.</div>
+                  <div style="background:rgba(176,136,48,0.10); border-left:3px solid var(--gold2); border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>🎯 No seu site (SENNIIIN): o ponto de atenção:</b> ao abrir qualquer página, o navegador baixa os <strong>24 arquivos</strong> de código e dados, cerca de <strong>709 KB</strong> (tamanho dos arquivos, sem compressão), e mais <strong>137 KB</strong> de CSS. Os 5 guias sozinhos somam cerca de 419 KB, uma média de cerca de <strong>84 KB por jogo</strong>. Isso quer dizer que cada jogo novo pesa algo dessa ordem para todo visitante, até para quem só lê a página inicial. Hoje é pequeno; é um assunto para estudar quando o site passar de uns dez jogos (carregar o guia só quando o jogo é aberto), e não para mudar agora.
+                  </div>
+                  <div style="background:rgba(46,110,70,0.09); border-left:3px solid #2e6e46; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>💡 Dica:</b> para medir sem achismo: F12 › <strong>Rede</strong> (Network), marque <em>Desativar cache</em> e recarregue. O rodapé da aba mostra o total transferido e o tempo de carregamento. Meça antes e depois de qualquer mudança.
+                  </div>
+                  <div class="topic-figure">
+                    <img src="Images\Estudos\Desenvolvimento Web\rede-tamanho-total.webp" alt="Aba Rede do navegador com o total transferido ao abrir o site" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+                    <div class="topic-figure-placeholder">
+                      <span class="topic-figure-icon">🖼️</span>
+                      <span class="topic-figure-caption">Espaço reservado — captura da aba Rede com a lista de arquivos carregados e o total transferido.</span>
+                    </div>
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>6. Como criar as "pernas" do site</strong> — chamo de <strong>perna</strong> um ponto de entrada em que uma informação nova vira conteúdo na tela sem você mexer em código. Cada perna tem um arquivo, um formato de bloco e uma regra (data, <code>id</code> único, categoria da lista). A regra de ouro do SENNIIIN é que <strong>informação nova é um bloco novo de dado, e nunca código novo</strong>. As pernas que já existem:</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">Você escreve ........................... O site mostra
+dados/novidades.js (um bloco) ........... faixa Novidades do Início, com a bolinha de "novo"
+dados/dicas.js (um bloco) ............... dica do dia, aba Dicas e as 6 dicas rápidas mais novas
+dados/jogos-lista.js + guias/&lt;id&gt;.js .... card, busca, números do Início e aba Guias
+atualizado: 'AAAA-MM-DD' (no guia) ...... "jogo a jogo" do Início, do mais recente ao mais antigo
+Images/… ................................ capas, logo, fundo e fotos de notícia</div>
+                    <figcaption class="hist-figure-caption">Um dado, vários lugares: escreva uma vez e o site distribui.</figcaption>
+                  </figure>
+                  <div class="hist-detail" style="margin-top:10px;">Para <strong>crescer ainda mais</strong>, a decisão é como manter o ritmo: como o site se mexe pelas datas, publique <strong>com a data real</strong> e em intervalos regulares (uma sugestão, não uma regra do código: uma notícia ou uma dica por semana). Um site vivo é um site cuja data mais recente não fica velha.</div>
+                  <div class="hist-detail" style="margin-top:10px;"><strong>Perna nova.</strong> Quando uma faixa que não existe fizer falta (curiosidades, por exemplo), o caminho segue o padrão que o código já usa: um arquivo de dados, uma linha na lista de carregamento, um lugar na casca, uma função <code>render…</code> e uma chamada dela em <code>renderHome()</code>. Esta é a única parte que mexe em código, então faça a cópia da pasta antes (passo 5 do estudo). Testei esta receita numa cópia do SENNIIIN: a faixa apareceu, e o texto trocou de idioma ao clicar em BR, porque a troca de idioma redesenha tudo o que <code>renderHome()</code> chama. O exemplo é ilustrativo; <code>CURIOSIDADES</code> não existe no seu site.</div>
+                  <figure class="hist-figure">
+                    <div style="font-family:'Courier Prime',monospace; font-size:12px; line-height:1.55; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:10px 14px; white-space:pre; overflow-x:auto; color:var(--ink2);">1) dados/curiosidades.js
+const CURIOSIDADES = [
+  { titulo: { pt: 'Sabia?', en: 'Did you know?' }, texto: { pt: '…', en: '…' } }
+]
+
+2) js/carregar.js — junto dos outros dados, antes de 'js/base.js'
+  'dados/textos.js',
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">  'dados/curiosidades.js',</mark>
+
+3) js/casca.js — onde a faixa vai aparecer (sem crases dentro desse HTML)
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">&lt;section id="home-curiosidades"&gt;&lt;/section&gt;</mark>
+
+4) js/paginas.js — a função que desenha
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">function renderCuriosidades() {
+  $('home-curiosidades').innerHTML = CURIOSIDADES
+    .map(c =&gt; `&lt;p&gt;&lt;b&gt;${esc(L(c.titulo))}&lt;/b&gt; ${esc(L(c.texto))}&lt;/p&gt;`).join('')
+}</mark>
+
+5) js/paginas.js — dentro de renderHome(), logo depois de renderStats()
+  renderStats()
+<mark style="background:rgba(176,136,48,0.30); color:inherit;">  renderCuriosidades()</mark></div>
+                    <figcaption class="hist-figure-caption">As cinco peças de uma faixa nova. Os trechos destacados são o que se acrescenta.</figcaption>
+                  </figure>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção:</b> o HTML dentro de <code>js/casca.js</code> não aceita crases (<code>`</code>) nem a sequência <code>${</code>: o arquivo avisa que isso quebra o site. E os arquivos de dados começam com <code>'use strict'</code>, como os outros.
+                  </div>
+                  <div style="background:rgba(139,0,0,0.08); border-left:3px solid #8b0000; border-radius:4px; padding:10px 14px; margin:12px 0; font-size:0.88em;">
+                    <b>⚠ Atenção: uma pegadinha da lista de jogos:</b> as faixas "últimos guias" mostram os <strong>primeiros</strong> da lista <code>GUIAS</code> (3 no Início, 8 em Guias, 5 na busca sem digitar), mas o comentário do arquivo manda acrescentar guias novos no <strong>fim</strong>. Com os 5 jogos de hoje nada disso aparece; com mais de 8, os mais novos ficariam fora das faixas "últimos". Quando chegar lá, decida se coloca os novos no topo da lista. Não mexi nisso.
+                  </div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>7. Teste de vida</strong> — quatro verificações que você mesmo faz, sem tocar no código: <strong>(1)</strong> abra o site amanhã: a dica do dia deve ser a seguinte da lista. <strong>(2)</strong> No F12 › <strong>Application</strong> › Local Storage, abra a chave <code>diario-platina-v1</code>, troque o valor de <code>visto</code> por uma data antiga (como <code>"2026-11-01"</code>) e recarregue: as notícias mais novas que essa data ganham a bolinha (testei: o site mostrou as 4 do filtro <em>Tudo</em>, e a chave voltou para a data de hoje). <strong>(3)</strong> Clique em EN, recarregue e confira que o idioma ficou. <strong>(4)</strong> Marque um troféu em um guia e veja a chave <code>diario-platina-trofeus-v1</code> aparecer.</div>
+                  <div class="hist-detail" style="margin-top:14px;"><strong>Em construção</strong> — este guia cobre o que sustenta o SENNIIIN hoje. Ficam para depois o carregamento sob demanda dos guias, o histórico de versões com Git e a publicação. Os trechos de código são cópias do seu site, exceto os marcados como ilustrativos; os números de tamanho e os testes foram obtidos rodando o site.</div>
+                  <div class="hist-names"><span class="hist-name-tag">dados × código</span><span class="hist-name-tag">js/carregar.js</span><span class="hist-name-tag">ids que ligam</span><span class="hist-name-tag">rotas #</span><span class="hist-name-tag">dica do dia</span><span class="hist-name-tag">última visita</span><span class="hist-name-tag">localStorage</span><span class="hist-name-tag">LIMITES</span><span class="hist-name-tag">perna nova</span><span class="hist-name-tag">teste de vida</span></div>
                 </div>
               </div>
             </div>
